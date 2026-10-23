@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import './App.css';
+import './css/App.css';
 import Inicio from './paginas/Inicio';
 import Contacto from './paginas/Contacto';
 import Login from './paginas/Login';
