@@ -312,7 +312,7 @@ function Productos(){
                             titulo="Pedal Overdrive"
                             descripcion="Tube Screamer clásico, sonido suave y orgánico"
                             precio={99990}
-                            imagen="/img/Pedal_Overdrive_Ibanez.jpg"
+                            imagen="/img/Pedal_Overdrive_Ibanez.webp"
                         />
 
                         <CardProducto
@@ -321,7 +321,7 @@ function Productos(){
                             titulo="Cuerdas Guitarra Eléctrica 09-42"
                             descripcion="Juego 6 cuerdas, calibre ligero"
                             precio={8990}
-                            imagen="/img/Cuerdas_Guitarra_Electrica_09_42_Ernie_Ball.jpg"
+                            imagen="/img/Cuerdas_Guitarra_Electrica_09-42_Ernie_Ball_1.webp"
                         />
 
                         <CardProducto
@@ -330,7 +330,7 @@ function Productos(){
                             titulo="Cuerdas Guitarra Acústica 12-53"
                             descripcion="Bronce fósforo, sonido cálido"
                             precio={10990}
-                            imagen="/img/Cuerdas_Guitarra_Acustica_12_53_Ernie_Ball.jpg"
+                            imagen="/img/Cuerdas_Guitarra_Acustica_12-53_Ernie_Ball.webp"
                         />
 
                         <CardProducto
@@ -339,7 +339,7 @@ function Productos(){
                             titulo="Cuerdas Bajo 45-105"
                             descripcion="Cuerdas de níquel enrollado, set 4 cuerdas"
                             precio={14990}
-                            imagen="/img/Cuerdas_Bajo_45_105_Ernie_Ball.jpg"
+                            imagen="/img/Cuerdas_Bajo_45-105.jpg"
                         />
 
                         <CardProducto
@@ -348,7 +348,7 @@ function Productos(){
                             titulo="Púas de Guitarra x10 (0.73mm)"
                             descripcion="Celulosa, grosor medio"
                             precio={3990}
-                            imagen="/img/Puas_de_Guitarra_x10_0_73mm_Fender.jpg"
+                            imagen="/img/Puas_de_Guitarra_x10_(0.73mm)_Fender.webp"
                         />
 
                         <CardProducto
@@ -357,7 +357,7 @@ function Productos(){
                             titulo="Capotraste Guitarra"
                             descripcion="Capotraste de resorte, compatible 6 cuerdas"
                             precio={12990}
-                            imagen="/img/Capotraste_Guitarra_Dunlop.jpg"
+                            imagen="/img/Capotraste_Guitarra_Dunlop.webp"
                         />
 
                         <CardProducto
@@ -366,7 +366,7 @@ function Productos(){
                             titulo="Afinador de Clip"
                             descripcion="Afinador cromático de clip, pantalla giratoria"
                             precio={8990}
-                            imagen="/img/Afinador_de_Clip_Snark.jpg"
+                            imagen="/img/Afinador_de_Clip_Snark.webp"
                         />
 
                         <CardProducto
@@ -375,7 +375,7 @@ function Productos(){
                             titulo="Cable Instrumento 3m"
                             descripcion="Cable trenzado, conectores dorados, 3 metros"
                             precio={12990}
-                            imagen="/img/Cable_Instrumento_3m_Monster.jpg"
+                            imagen="/img/Cable_Instrumento_3m_Monster.webp"
                         />
 
                         <CardProducto
@@ -393,7 +393,7 @@ function Productos(){
                             titulo="Soporte Guitarra de Piso"
                             descripcion="Soporte plegable con enganche automático"
                             precio={22990}
-                            imagen="/img/Soporte_Guitarra_de_Piso_Hercules.jpg"
+                            imagen="/img/Soporte_Guitarra_de_Piso_Hercules.webp"
                         />
 
                         <CardProducto
@@ -402,7 +402,7 @@ function Productos(){
                             titulo="Soporte Guitarra de Pared"
                             descripcion="Montaje a pared, enganche automático"
                             precio={18990}
-                            imagen="/img/Soporte_Guitarra_de_Pared_Hercules.jpg"
+                            imagen="/img/Soporte_Guitarra_de_Pared_Hercules.webp"
                         />
 
                         <CardProducto
@@ -420,7 +420,7 @@ function Productos(){
                             titulo="Auriculares de Estudio"
                             descripcion="Circumaurales, respuesta 15Hz-20kHz"
                             precio={79990}
-                            imagen="/img/Auriculares_de_Estudio_Audio_Tech.jpg"
+                            imagen="/img/Auriculares_de_Estudio_Audio_Tech.webp"
                         />
 
                         <CardProducto
@@ -429,7 +429,7 @@ function Productos(){
                             titulo="Auriculares de Estudio Pro"
                             descripcion="Referencia de industria, sonido neutro y detallado"
                             precio={219990}
-                            imagen="/img/Auriculares_de_Estudio_Pro_Audio_Tech.jpg"
+                            imagen="/img/Auriculares_Pro.webp"
                         />
 
                         <CardProducto
@@ -438,7 +438,7 @@ function Productos(){
                             titulo="Monitor de Estudio 5''"
                             descripcion="Altavoz activo, respuesta plana, ideal mezcla"
                             precio={349990}
-                            imagen="/img/Monitor_de_Estudio_5_Yamaha.jpg"
+                            imagen="/img/Monitor_de_Estudio_5_Yamaha.jpeg"
                         />
 
                         <CardProducto
