@@ -1,0 +1,201 @@
+/* TIPOGRAFÍAS DEL PROYECTO ORIGINAL */
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* BARRA DE NAVEGACIÓN */
+.navbar {
+  width: 100%;
+  min-height: 90px;
+  padding: 10px 4%;
+  box-sizing: border-box;
+  background-color: #0b0b10 !important;
+  border-bottom: 1px solid #292733;
+  display: flex;
+  align-items: center;
+}
+
+/* CONTENEDOR */
+.navbar .container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+/* LOGO / NOMBRE DE LA TIENDA */
+.navbar .navbar-brand {
+  font-family: 'Creepster', cursive;
+  font-size: 2rem;
+  color: #ededed !important;
+  letter-spacing: 2px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.navbar .navbar-brand:hover {
+  color: #806bb5 !important;
+}
+
+/* ENLACES */
+.navbar .navbar-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* ESTILO DE LOS ENLACES */
+.navbar .nav-link {
+  color: #c6c2c8 !important;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin: 0 5px;
+  padding: 10px 8px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+/* EFECTO AL PASAR EL CURSOR */
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+  color: #bd5b88 !important;
+}
+
+/* MENÚ DESPLEGABLE */
+.navbar .dropdown-menu {
+  background-color: #15151c;
+  border: 1px solid #292733;
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.navbar .dropdown-item {
+  color: #d6d3d8;
+  padding: 10px 18px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.navbar .dropdown-item:hover {
+  color: #fff;
+  background-color: #6b5fa7;
+}
+
+/* ADAPTACIÓN A PANTALLAS PEQUEÑAS */
+@media (max-width: 1000px) {
+  .navbar {
+    padding: 15px 3%;
+  }
+
+  .navbar .container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .navbar .navbar-nav {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 550px) {
+  .navbar .navbar-brand {
+    font-size: 1.7rem;
+  }
+
+  .navbar .nav-link {
+    font-size: 0.75rem;
+    padding: 8px 6px;
+    margin: 0;
+  }
+}
+
+/* CONTENEDOR DE CATEGORÍAS */
+.navbar .dropdown-categorias {
+  position: relative;
+}
+
+/* BOTÓN CATEGORÍAS SIN BORDE */
+.navbar .dropdown-boton {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #c6c2c8 !important;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 10px 8px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.navbar .dropdown-boton:hover,
+.navbar .dropdown-boton:focus {
+  color: #bd5b88 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.navbar .dropdown-boton span {
+  color: #6b5fa7;
+  margin-left: 4px;
+}
+
+/* MENÚ DESPLEGABLE */
+.navbar .dropdown-categorias .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1050;
+  min-width: 230px;
+  padding: 6px;
+  margin: 5px 0 0;
+  background-color: #15151c;
+  border: 1px solid #292733;
+  border-radius: 5px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* MOSTRAR AL HACER CLIC */
+.navbar .dropdown-categorias .dropdown-menu.show {
+  display: block;
+}
+
+/* OPCIONES DEL MENÚ */
+.navbar .dropdown-categorias .dropdown-menu a {
+  display: block;
+  padding: 10px 12px;
+  color: #d6d3d8;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.navbar .dropdown-categorias .dropdown-menu a:hover {
+  color: #fff;
+  background-color: #6b5fa7;
+}
+
+
+.navbar .dropdown-item {
+  color: #d6d3d8;
+}
+
+.navbar .dropdown-item:hover {
+  color: white;
+  background-color: #6b5fa7;
+}
