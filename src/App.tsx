@@ -27,6 +27,10 @@ function App() {
           element={<Productos/>}
         />
         <Route
+          path="/productos/:id"
+          element={<DetalleProducto />}
+        />
+        <Route
           path='/contacto'
           element={<Contacto/>}
         />
