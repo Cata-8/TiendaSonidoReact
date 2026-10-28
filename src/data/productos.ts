@@ -1,3 +1,5 @@
+// src/data/productos.ts
+// Fuente de datos simulada de Sonido Vivo: tipo, datos y funciones CRUD en un solo archivo.
 
 // ---------- 1. Tipo ----------
 export interface Producto {
@@ -12,7 +14,38 @@ export interface Producto {
   imagen: string;
 }
 
-// ---------- 2. Datos iniciales (catálogo Forma B, 51 productos) ----------
+export interface ItemCarrito {
+    codigo: string;
+    nombre: string;
+    marca: string;
+    modelo: string;
+    precio: number;
+    imagen: string;
+    cantidad: number;
+}
+
+// ---------- 2. Categorías ----------
+// "slug" es el valor que viaja en la URL, por ejemplo /productos?categoria=bajos
+// (es el mismo que ya usan el Navbar y la página de Inicio).
+export const CATEGORIAS = [
+  { slug: "acusticas", nombre: "Guitarras Acústicas" },
+  { slug: "electricas", nombre: "Guitarras Eléctricas" },
+  { slug: "bajos", nombre: "Bajos Eléctricos" },
+  { slug: "baterias", nombre: "Baterías" },
+  { slug: "teclados", nombre: "Teclados y Pianos" },
+  { slug: "amplificadores", nombre: "Amplificadores" },
+  { slug: "microfonos", nombre: "Micrófonos" },
+  { slug: "pedales", nombre: "Pedales de Efectos" },
+  { slug: "accesorios", nombre: "Accesorios" },
+  { slug: "estudio y grabacion", nombre: "Estudio y Grabación" },
+];
+
+// Convierte el slug de la URL en el nombre de la categoría (undefined si no existe)
+export function categoriaDesdeSlug(slug: string): string | undefined {
+  return CATEGORIAS.find((c) => c.slug === slug)?.nombre;
+}
+
+// ---------- 3. Datos iniciales (catálogo Forma B, 51 productos) ----------
 const productosIniciales: Producto[] = [
   {
     codigo: "GA001",
@@ -577,7 +610,7 @@ const productosIniciales: Producto[] = [
   },
 ];
 
-// ---------- 3. CRUD ----------
+// ---------- 4. CRUD ----------
 // Los datos viven en memoria: al recargar la página vuelven al estado inicial.
 let productos: Producto[] = [...productosIniciales];
 
@@ -591,10 +624,14 @@ export function obtenerProducto(codigo: string): Producto | undefined {
   return productos.find((p) => p.codigo === codigo);
 }
 
-// READ: búsqueda por nombre, marca o código, con categoría opcional
-export function buscarProductos(texto: string, categoria?: string): Producto[] {
+// READ: filtra una lista por texto (nombre, marca o código) y categoría opcional
+export function filtrarProductos(
+  lista: Producto[],
+  texto: string,
+  categoria?: string,
+): Producto[] {
   const t = texto.trim().toLowerCase();
-  return productos.filter(
+  return lista.filter(
     (p) =>
       (!categoria || p.categoria === categoria) &&
       (!t ||
@@ -602,6 +639,11 @@ export function buscarProductos(texto: string, categoria?: string): Producto[] {
         p.marca.toLowerCase().includes(t) ||
         p.codigo.toLowerCase().includes(t)),
   );
+}
+
+// READ: búsqueda sobre todos los productos
+export function buscarProductos(texto: string, categoria?: string): Producto[] {
+  return filtrarProductos(productos, texto, categoria);
 }
 
 // CREATE
@@ -620,7 +662,7 @@ export function actualizarProducto(
 ): Producto {
   const actual = productos.find((p) => p.codigo === codigo);
   if (!actual) throw new Error("Producto no encontrado");
-  const actualizado = { ...actual, ...cambios };
+  const actualizado = { ...actual, ...cambios, codigo };
   productos = productos.map((p) => (p.codigo === codigo ? actualizado : p));
   return actualizado;
 }
