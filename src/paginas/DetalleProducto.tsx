@@ -6,16 +6,23 @@ function DetalleProducto(){
 
     const {id} = useParams()
 
+    const producto = productos.find(
+        producto => producto.id === id
+    )
     const producto = obtenerProducto(id ?? "")
 
     if (!producto) {
         return(
             <div className="detalle-producto">
                 <h1>Producto no encontrado</h1>
-                <BotonVolver/>
+
+                <div className="mt-auto">
+                    <BotonVolver/>
+                </div>
             </div>
         )
     }
+
 
     return(
         <div className="detalle-producto">
