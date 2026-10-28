@@ -1,0 +1,7 @@
+/* Estilos globales mínimos.
+   El tema del sitio vive en styles/tema.css (bajo .sitio) y el del panel
+   administrador en styles/admin.css (bajo .admin-body). */
+body {
+    margin: 0;
+    background-color: #0e0e14;
+}

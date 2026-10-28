@@ -2,16 +2,17 @@ import { Link } from "react-router-dom";
 
 interface BotonProps{
     id: string;
+    texto?: string; // por defecto "Ver producto"
 }
 
-function Boton({ id }: BotonProps) {
-    
+function Boton({ id, texto = "Ver producto" }: BotonProps) {
+
     return(
         <Link
             to={`/producto/${id}`}
-            className="btn-detalle"
+            className="btn btn-primary"
         >
-            Ver Detalle
+            {texto}
         </Link>
     )
 

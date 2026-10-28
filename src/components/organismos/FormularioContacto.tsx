@@ -30,7 +30,7 @@ function FormularioContacto(){
     };
 
     return(
-        <form onSubmit={manejarEnvio} noValidate className="formulario">
+        <form onSubmit={manejarEnvio} noValidate>
             <CampoFormulario
                 etiqueta="Nombre Completo"
                 tipo="text"

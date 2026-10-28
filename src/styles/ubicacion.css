@@ -1,0 +1,27 @@
+/* Ubicación (migrado de css/ubicacion.css) */
+
+.sitio .ubicacion-contenido {
+    display: flex;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.sitio .ubicacion-info {
+    flex: 1;
+    background-color: var(--negro-2);
+    border: 1px solid var(--borde);
+    padding: 35px;
+}
+
+.sitio .ubicacion-info h2 {
+    font-family: 'Creepster', cursive;
+    color: var(--rosa-claro);
+}
+
+.sitio .dato {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--borde);
+}

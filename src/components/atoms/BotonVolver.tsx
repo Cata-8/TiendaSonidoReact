@@ -5,9 +5,9 @@ function BotonVolver() {
     return(
         <Link
             to={`/productos`}
-            className="btn btn-primary btn-detalle"
+            className="btn btn-primary"
         >
-            Volver al Catálogo
+            Volver a productos
         </Link>
     )
 

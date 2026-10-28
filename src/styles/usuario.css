@@ -101,6 +101,7 @@
     cursor: default;
 }
 
+/* El HTML original usaba class="cuenta-dato full" pero nunca definió .full */
 .sitio .cuenta-dato.full {
     grid-column: 1 / -1;
 }

@@ -1,44 +1,44 @@
 import Boton from "../atoms/Boton";
+import { formatearPrecio } from "../../utils/formato";
 
-interface CardProducto{
+interface CardProductoProps{
     id: string;
     marca: string;
     titulo: string;
-    descripcion: string;
     precio: number;
     imagen: string;
 }
 
-function CardProducto({id, titulo, descripcion, precio, imagen}: CardProducto) {
+function CardProducto({id, marca, titulo, precio, imagen}: CardProductoProps) {
     return(
-        <div className="card-producto" style={{width: '20rem'}}>
+        <div className="card card-tienda producto-card h-100">
 
-            <img
-                src={imagen}
-                className="card-img-top"
-                alt={titulo}
-                style={{height: '200px', objectFit: 'contain'}}
-            />
+            <div className="producto-img-wrap">
+                <img
+                    src={imagen}
+                    className="producto-img"
+                    alt={titulo}
+                />
+            </div>
 
             <div className="card-body d-flex flex-column">
-                <h5 className="card-title">
-                    {titulo}
-                </h5>
+                <span className="producto-marca">
+                    {marca}
+                </span>
 
-                <p className="card-text">
-                    {descripcion}
+                <h2 className="producto-nombre">
+                    {titulo}
+                </h2>
+
+                <p className="producto-precio mt-auto">
+                    {formatearPrecio(precio)}
                 </p>
-                <p className="card-text">
-                    ${precio}
-                </p>
-                <div className="mt-auto">
-                    <Boton id={id} />
-                </div>
-                
+
+                <Boton id={id} texto="Ver Detalle" />
             </div>
         </div>
     )
-        
+
 }
 
 export default CardProducto;

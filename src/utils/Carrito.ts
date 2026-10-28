@@ -1,4 +1,4 @@
-import type { ItemCarrito, Producto } from "../data/productos";
+import type { ItemCarrito, Producto } from "../types/producto";
 
 // Funciones puras sobre la lista del carrito (la lógica que estaba en detalle.js y carrito.js)
 

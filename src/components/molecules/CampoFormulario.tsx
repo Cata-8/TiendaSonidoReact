@@ -1,4 +1,6 @@
 import Input from "../atoms/Input";
+import Select from "../atoms/Select";
+import type { OpcionSelect } from "../atoms/Select";
 
 type Props = {
     etiqueta: string;
@@ -6,25 +8,36 @@ type Props = {
     nombre: string;
     valor: string;
     alCambiar: (valor: string) => void;
-    error?: string; //mensaje de error opcional que se muestra bajo el campo
+    placeholder?: string;
+    maxLength?: number;
+    opciones?: OpcionSelect[]; // si viene, el campo es un <select> en vez de un <input>
 };
 
-function CampoFormulario({ etiqueta, tipo, nombre, valor, alCambiar, error }: Props) {
+function CampoFormulario({ etiqueta, tipo, nombre, valor, alCambiar, placeholder, maxLength, opciones }: Props) {
     return(
         <div className="mb-3">
-            <label className="form-label" htmlFor={nombre}>
+            <label className="form-label">
                 {etiqueta}
             </label>
 
-            <Input 
-                tipo={tipo} 
-                nombre={nombre}
-                valor={valor}
-                alCambiar={alCambiar}
-                invalido={Boolean(error)}
-            />
-
-            {error && <div className="text-danger small mt-1">{error}</div>}
+            {opciones ? (
+                <Select
+                    nombre={nombre}
+                    valor={valor}
+                    alCambiar={alCambiar}
+                    opciones={opciones}
+                    placeholder={placeholder}
+                />
+            ) : (
+                <Input
+                    tipo={tipo}
+                    nombre={nombre}
+                    valor={valor}
+                    alCambiar={alCambiar}
+                    placeholder={placeholder}
+                    maxLength={maxLength}
+                />
+            )}
         </div>
     );
 }

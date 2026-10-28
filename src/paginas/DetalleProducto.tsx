@@ -1,45 +1,59 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import BotonVolver from "../components/atoms/BotonVolver"
-import { obtenerProducto } from "../data/productos"
+import { useCarrito } from "../store/carrito"
+import { useProductos } from "../store/productos"
+import { formatearPrecio } from "../utils/formato"
 
 function DetalleProducto(){
 
     const {id} = useParams()
+    const { buscar } = useProductos()
+    const { agregar } = useCarrito()
+    const navigate = useNavigate()
 
-
-    const producto = obtenerProducto(id ?? "")
+    const producto = id ? buscar(id) : undefined
 
     if (!producto) {
         return(
-            <div className="detalle-producto">
+            <div className="pagina-detalle">
                 <h1>Producto no encontrado</h1>
-
-                <div className="mt-auto">
+                <p className="detalle-no-encontrado">El producto que buscas no existe o fue eliminado.</p>
+                <div className="acciones-detalle">
                     <BotonVolver/>
                 </div>
             </div>
         )
     }
 
+    // Igual que agregarAlCarrito() de detalle.js: agrega y lleva al carrito
+    const agregarYVer = () => {
+        agregar(producto)
+        navigate("/carrito")
+    }
 
     return(
-        <div className="detalle-producto">
-            <h1>Detalle del producto</h1>
+        <div className="pagina-detalle">
+            <h1>Detalle del Producto</h1>
 
             <img
+                className="detalle-imagen"
                 src={producto.imagen}
                 alt={producto.nombre}
-                style={{width: '300px'}}
+                width={300}
             />
 
             <h2>{producto.nombre}</h2>
-            <p>{producto.marca} {producto.modelo}</p>
 
-            <p>{producto.descripcion}</p>
+            <p className="detalle-marca">Marca: {producto.marca}</p>
+            <p className="detalle-modelo">Modelo: {producto.modelo}</p>
+            <p className="detalle-precio">Precio: {formatearPrecio(producto.precio)}</p>
+            <p className="detalle-descripcion">Descripción: {producto.descripcion}</p>
+            <br />
 
-            <p>${producto.precio}</p>
-
-            <div className="mt-auto">
+            <div className="acciones-detalle">
+                <button type="button" className="btn-detalle btn-primario" onClick={agregarYVer}>
+                    Agregar al carrito
+                </button>
                 <BotonVolver/>
             </div>
         </div>

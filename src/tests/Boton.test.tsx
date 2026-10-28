@@ -14,7 +14,7 @@ test("el botón muestra el texto Ver producto", () => {
         </MemoryRouter>
     );
 
-    const boton = screen.getByText("Ver Detalle");
+    const boton = screen.getByText("Ver producto");
 
-    expect(boton.textContent).toBe("Ver Detalle");
+    expect(boton.textContent).toBe("Ver producto");
 });

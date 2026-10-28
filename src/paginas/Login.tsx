@@ -1,25 +1,23 @@
 import { Link } from "react-router-dom";
 import FormularioLogin from "../components/organismos/FormularioLogin";
-import "../css/Login.css";
+
 
 function Login(){
 
     return(
-            <div className= "container mt-5">
-                <div className="row justify-content-center">
-                    <div className="col-12 col-md-8 col-lg-6">
-                        <div className="shadow-sm p-4 rounded-3" style={{ backgroundColor: "#2A1B38", color: "#F5EFFA" }}>
+            <div className= "pagina-login container d-flex align-items-center justify-content-center">
+                <div className="col-12 col-md-8 col-lg-6">
+                    <div className="login">
 
-                            <h2 className="mb-4">Formulario de contacto</h2>
+                        <h1>Iniciar sesión</h1>
 
-                            <FormularioLogin/>
+                        <FormularioLogin/>
 
-                            <p className="login-registro">
-                                ¿No tienes una cuenta?{" "}
-                                <Link to="/registro">Regístrate aquí</Link>
-                            </p>
-                            
-                        </div>
+                        <p>
+                            ¿No tiene una cuenta? Ingrese aquí para registrarte{" "}
+                            <Link to="/registro">registrarse</Link>
+                        </p>
+
                     </div>
                 </div>
             </div>

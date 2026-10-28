@@ -1,59 +1,66 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CampoFormulario from "../molecules/CampoFormulario";
+import { iniciarSesion } from "../../store/sesion";
+import { esClaveValida, esCorreoValido } from "../../utils/validaciones";
 
 function FormularioLogin(){
     const [correo, setCorreo] = useState("");
-    const [contrasena, setContrasena] = useState("");
+    const [clave, setClave] = useState("");
+    const navigate = useNavigate();
 
     const manejarLogin = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
-        if (correo.trim() === "") {
-        alert("debe ingresar su correo");
-        return;
+
+        if (correo.trim() === "" || clave === "") {
+            alert("Debe completar todos los campos");
+            return;
         }
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+        if (!esCorreoValido(correo.trim())) {
             alert("Ingrese un correo válido");
             return;
         }
-        if (contrasena.trim() === ""){
-            alert("debe ingresar contraseña")
+        if (!esClaveValida(clave)) {
+            alert("La clave debe tener 4 dígitos");
             return;
         }
-        if (contrasena.length < 8){
-            alert("La contraseña es muy corta. Debe tener mas de 8 caracteres")
+
+        const usuario = iniciarSesion(correo, clave);
+
+        if (!usuario) {
+            alert("Correo o clave incorrectos");
             return;
         }
-        alert("Formulario enviado correctamente");
-    
+
+        // Igual que login.js: el administrador va al panel y el cliente a su cuenta
+        navigate(usuario.rol === "admin" ? "/admin" : "/usuario");
     };
 
     return(
-        <form onSubmit={manejarLogin} noValidate className="formulario">
+        <form onSubmit={manejarLogin} noValidate>
 
             <CampoFormulario
-                etiqueta="Correo electrónico"
+                etiqueta="Correo"
                 tipo="email"
                 nombre="correo"
                 valor={correo}
                 alCambiar={setCorreo}
             />
             <CampoFormulario
-                etiqueta="Contraseña"
+                etiqueta="Clave"
                 tipo="password"
-                nombre="contraseña"
-                valor={contrasena}
-                alCambiar={setContrasena}
+                nombre="clave"
+                valor={clave}
+                alCambiar={setClave}
+                maxLength={4}
             />
 
             <button type="submit" className="btn btn-primary">
-                Ingresar
+                INGRESAR
             </button>
 
         </form>
     );
-
-    
 };
 
 export default FormularioLogin;

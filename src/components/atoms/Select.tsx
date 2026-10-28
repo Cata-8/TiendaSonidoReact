@@ -1,24 +1,29 @@
+export type OpcionSelect = {
+    valor: string;
+    etiqueta: string;
+};
+
 type Props = {
     nombre: string;
     valor: string;
-    opciones: string[];
     alCambiar: (valor: string) => void;
-    invalido?: boolean;
+    opciones: OpcionSelect[];
+    placeholder?: string; // primera opción vacía, ej: "Seleccione tipo de usuario"
 };
 
-function Select({ nombre, valor, opciones, alCambiar, invalido = false }: Props) {
+function Select({ nombre, valor, alCambiar, opciones, placeholder }: Props) {
     return(
         <select
-            id={nombre}
             name={nombre}
-            className={`form-select ${invalido ? "is-invalid" : ""}`}
+            className="form-select"
             value={valor}
             onChange={(e) => alCambiar(e.target.value)}
         >
-            <option value="">Seleccione...</option>
+            {placeholder !== undefined && <option value="">{placeholder}</option>}
+
             {opciones.map((opcion) => (
-                <option key={opcion} value={opcion}>
-                    {opcion}
+                <option key={opcion.valor} value={opcion.valor}>
+                    {opcion.etiqueta}
                 </option>
             ))}
         </select>

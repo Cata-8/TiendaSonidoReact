@@ -1,45 +1,53 @@
-import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import CardProducto from "../components/molecules/CardProducto";
-import { buscarProductos } from "../data/productos";
+import { categorias } from "../data/categorias";
+import { useProductos } from "../store/productos";
 
+// Una sola página para el catálogo completo (/productos) y para cada categoría (/productos/:categoria).
+// Reemplaza a catalogo.html, guitarras.html, bajos.html, baterias.html, teclados.html,
+// amplificadores.html, microfonos.html, pedales.html, accesorios.html y estudio_grabacion.html
 function Productos(){
+    const { categoria } = useParams();
+    const { productos } = useProductos();
 
-    const [texto, setTexto] = useState("");
-    const lista = buscarProductos(texto);
+    const seleccionada = categorias.find((c) => c.slug === categoria);
+
+    if (categoria && !seleccionada) {
+        return(
+            <div className="pagina-catalogo container">
+                <h1>Categoría no encontrada</h1>
+                <Link to="/productos" className="btn btn-primary">Ver todo el catálogo</Link>
+            </div>
+        )
+    }
+
+    const lista = seleccionada
+        ? productos.filter((p) => p.categoria.includes(seleccionada.filtro))
+        : productos;
 
     return(
-        <div className="contenedor-productos">
-            <h1>Productos</h1>
+        <div className="pagina-catalogo">
+            <h1>{seleccionada ? seleccionada.titulo : "Catálogo de Productos"}</h1>
 
-            <input
-                type="text"
-                className="form-control mb-3"
-                placeholder="Buscar por nombre, marca o código..."
-                value={texto}
-                onChange={(e) => setTexto(e.target.value)}
-            />
-
-            {lista.length === 0 ? (
-                <p>No se encontraron productos</p>
-            ) : (
-                <div className="d-flex gap-3">{/* Clase de bootstrap que permite que las Cards se vean horizontalmente */}
-                    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 grilla-cards">
-                        {lista.map((p) => (
-                            <CardProducto
-                                key={p.codigo}
-                                id={p.codigo}
-                                marca={p.marca}
-                                titulo={p.nombre}
-                                descripcion={p.descripcion}
-                                precio={p.precio}
-                                imagen={p.imagen}
-                            />
-                        ))}
-                    </div>
-                </div>
+            {lista.length === 0 && (
+                <p className="text-center">No hay productos en esta categoría.</p>
             )}
+
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 grilla-cards">
+                {lista.map((p) => (
+                    <div className="col" key={p.codigo}>
+                        <CardProducto
+                            id={p.codigo}
+                            marca={p.marca}
+                            titulo={p.nombre}
+                            precio={p.precio}
+                            imagen={p.imagen}
+                        />
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }
 
-export default Productos
+export default Productos;
