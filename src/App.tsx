@@ -8,6 +8,7 @@ import Productos from './paginas/Productos';
 import Navbar from './components/organismos/Navbar';
 import DetalleProducto from './paginas/DetalleProducto';
 import Ubicacion from './paginas/Ubicacion';
+import Registro from './paginas/Registro';
 
 function App() {
 
@@ -48,6 +49,9 @@ function App() {
         <Route 
           path='/login'
           element={<Login/>}/>
+        <Route 
+          path="/registro" 
+          element={<Registro />} />
       </Routes>
       
     </>
