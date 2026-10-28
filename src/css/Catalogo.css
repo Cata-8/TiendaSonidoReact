@@ -1,0 +1,53 @@
+/* Catálogo de productos (migrado de css/catalogo.css) */
+
+.sitio .pagina-catalogo h1 {
+    text-align: center;
+}
+
+.sitio .producto-card {
+    border-radius: 14px;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.sitio .producto-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(253, 70, 247, 0.25);
+}
+
+.sitio .producto-img-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    height: 220px;
+    filter: brightness(0.55) saturate(0.85);
+}
+
+.sitio .producto-img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    filter: brightness(0.95);
+}
+
+.sitio .card-tienda .card-body {
+    padding: 18px 20px 20px;
+}
+
+.sitio .producto-marca {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.sitio .producto-nombre {
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin: 6px 0 10px;
+}
+
+.sitio .producto-precio {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+}

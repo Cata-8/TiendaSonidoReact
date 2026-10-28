@@ -5,13 +5,14 @@ type Props = {
     tipo: string;
     nombre: string;
     valor: string;
-    alCambiar: (valor: string) => void
+    alCambiar: (valor: string) => void;
+    error?: string; //mensaje de error opcional que se muestra bajo el campo
 };
 
-function CampoFormulario({ etiqueta, tipo, nombre, valor, alCambiar }: Props) {
+function CampoFormulario({ etiqueta, tipo, nombre, valor, alCambiar, error }: Props) {
     return(
         <div className="mb-3">
-            <label className="form-label">
+            <label className="form-label" htmlFor={nombre}>
                 {etiqueta}
             </label>
 
@@ -20,7 +21,10 @@ function CampoFormulario({ etiqueta, tipo, nombre, valor, alCambiar }: Props) {
                 nombre={nombre}
                 valor={valor}
                 alCambiar={alCambiar}
+                invalido={Boolean(error)}
             />
+
+            {error && <div className="text-danger small mt-1">{error}</div>}
         </div>
     );
 }
