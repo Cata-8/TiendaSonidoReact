@@ -1,0 +1,179 @@
+/* Carrito (migrado de css/carrito.css). También lo reutiliza Mi cuenta (.resumen-compra) */
+
+.sitio .carrito-div {
+    text-align: center;
+    align-items: center;
+    padding: 60px 20px 50px;
+}
+
+.sitio .carrito-subtitulo::after {
+    content: "";
+    display: block;
+    width: 90px;
+    height: 3px;
+    background-color: #a54c7a;
+    margin: 10px auto 0;
+}
+
+/* ---------- Layout principal ---------- */
+.sitio .carrito-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    padding: 45px 4% 80px;
+    max-width: 1400px;
+}
+
+/* ---------- Columna de ítems ---------- */
+.sitio .carrito-vacio {
+    text-align: center;
+    color: #aaa7ad;
+    padding: 60px 0;
+}
+
+.sitio .carrito-vacio a {
+    color: #bd5b88;
+    font-weight: 600;
+}
+
+/* ---------- Tarjeta de ítem ---------- */
+.sitio .carrito-item-card {
+    display: flex;
+    align-items: center;
+    border: 1px solid #292733;
+    border-radius: 10px;
+}
+
+.sitio .carrito-item-img {
+    height: 100px;
+    border-radius: 8px;
+    padding: 10px;
+    flex-shrink: 0;
+}
+
+.sitio .carrito-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.sitio .carrito-item-nombre {
+    font-weight: 600;
+    color: #ededed;
+    margin: 0 0 4px;
+}
+
+.sitio .carrito-item-marca {
+    color: #806bb5;
+    margin: 0 0 4px;
+}
+
+.sitio .carrito-item-precio {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #bd5b88;
+}
+
+/* ---------- Control de cantidad ---------- */
+.sitio .cantidad-control {
+    background-color: #15151c;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.sitio .cantidad-control button {
+    background-color: #6b5fa7;
+    color: white;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.sitio .cantidad-control button:hover {
+    background-color: #a54c7a;
+}
+
+.sitio .cantidad-control input {
+    width: 42px;
+    text-align: center;
+    border: none;
+    background-color: transparent;
+    color: #ededed;
+    height: 34px;
+    font-weight: 600;
+}
+
+/* ---------- Botón eliminar ---------- */
+.sitio .carrito-item-eliminar {
+    background: none;
+    border: none;
+    color: #bd5b88;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.sitio .carrito-item-eliminar:hover {
+    color: #f08080;
+}
+
+/* ---------- Volver al catálogo ---------- */
+.sitio .volver-catalogo {
+    display: inline-block;
+    margin-top: 22px;
+    color: #bd5b88;
+}
+
+/* ---------- Resumen de compra (sidebar) ---------- */
+.sitio .resumen-compra {
+    background-color: #111116;
+    border: 2px dashed rgba(165, 76, 122, 0.4);
+    border-radius: 14px;
+    padding: 30px 26px;
+}
+
+.sitio .resumen-compra h2 {
+    font-family: 'Creepster', cursive;
+    color: #bd5b88;
+    text-align: center;
+}
+
+.sitio .resumen-linea {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.sitio .envio-gratis {
+    color: #7fd39a;
+}
+
+.sitio .resumen-total {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ededed;
+}
+
+.sitio .btn-comprar {
+    justify-content: center;
+    width: 100%;
+    background-color: #a54c7a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.sitio .btn-comprar:hover {
+    background-color: #6b5fa7;
+    transform: translateY(-2px);
+}
+
+.sitio .compra-segura {
+    text-align: center;
+    color: #aaa7ad;
+    font-size: 0.85rem;
+    margin-top: 18px;
+    line-height: 1.5;
+}

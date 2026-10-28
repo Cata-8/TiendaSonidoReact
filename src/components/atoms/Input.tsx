@@ -2,15 +2,17 @@ type Props = {
     tipo: string;
     nombre: string;
     valor: string; //Valor actual del campo
-    alCambiar: (valor: string) => void; //funcion para actualizar el valor
+    alCambiar: (valor: string) => void;
+    invalido?: boolean;
 };
 
-function Input({tipo, nombre, valor, alCambiar }: Props) {
+function Input({tipo, nombre, valor, alCambiar, invalido = false }: Props) {
     return(
         <input
+            id={nombre}
             type={tipo}
             name={nombre}
-            className="form-control"
+            className={`form-control ${invalido ? "is-invalid" : ""}`}
 
             //muestra el valor guardado
             value={valor}
