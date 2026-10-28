@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { CATEGORIAS } from "../../data/productos";
 import "../../css/Navbar.css";
 
 function Navbar(){
@@ -33,24 +34,15 @@ function Navbar(){
                     </button>
 
                     <div className={`dropdown-menu ${categoriasAbiertas ? "show" : ""}`}>
-                        <Link to="/productos?categoria=acusticas" onClick={() => setCategoriasAbiertas(false)}>
-                        Guitarras acústicas
-                        </Link>
-                        <Link to="/productos?categoria=electricas" onClick={() => setCategoriasAbiertas(false)}>
-                        Guitarras eléctricas
-                        </Link>
-                        <Link to="/productos?categoria=bajos" onClick={() => setCategoriasAbiertas(false)}>
-                        Bajos
-                        </Link>
-                        <Link to="/productos?categoria=baterias" onClick={() => setCategoriasAbiertas(false)}>
-                        Baterías
-                        </Link>
-                        <Link to="/productos?categoria=teclados" onClick={() => setCategoriasAbiertas(false)}>
-                        Teclados y sintetizadores
-                        </Link>
-                        <Link to="/productos?categoria=amplificadores" onClick={() => setCategoriasAbiertas(false)}>
-                        Amplificadores
-                        </Link>
+                        {CATEGORIAS.map((c) => (
+                            <Link
+                                key={c.slug}
+                                to={`/productos?categoria=${encodeURIComponent(c.slug)}`}
+                                onClick={() => setCategoriasAbiertas(false)}
+                            >
+                                {c.nombre}
+                            </Link>
+                        ))}
                     </div>
                     </div>
 
