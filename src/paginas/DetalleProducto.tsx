@@ -6,9 +6,7 @@ function DetalleProducto(){
 
     const {id} = useParams()
 
-    const producto = productos.find(
-        producto => producto.id === id
-    )
+
     const producto = obtenerProducto(id ?? "")
 
     if (!producto) {
