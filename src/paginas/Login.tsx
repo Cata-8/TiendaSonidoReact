@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom";
 import FormularioLogin from "../components/organismos/FormularioLogin";
-
+import "../css/Login.css";
 
 function Login(){
 
@@ -12,6 +13,11 @@ function Login(){
                             <h2 className="mb-4">Formulario de contacto</h2>
 
                             <FormularioLogin/>
+
+                            <p className="login-registro">
+                                ¿No tienes una cuenta?{" "}
+                                <Link to="/registro">Regístrate aquí</Link>
+                            </p>
                             
                         </div>
                     </div>
