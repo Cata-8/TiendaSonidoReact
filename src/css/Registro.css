@@ -1,0 +1,119 @@
+
+.registro-pagina {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: #0e0e14;
+  color: #ededed;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+
+.registro-contenedor {
+  width: 100%;
+  max-width: 460px;
+  padding: 35px;
+  background-color: #181820;
+  border: 1px solid #292733;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+}
+
+.registro-contenedor h1 {
+  margin: 0 0 10px;
+  text-align: center;
+  color: #806bb5;
+  font-size: 2rem;
+}
+
+.registro-descripcion {
+  margin-bottom: 25px;
+  text-align: center;
+  color: #c6c2c8;
+  font-size: 0.9rem;
+}
+
+.registro-grupo {
+  margin-bottom: 17px;
+}
+
+.registro-grupo label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 0.9rem;
+}
+
+.registro-grupo input {
+  width: 100%;
+  padding: 12px;
+  color: #ededed;
+  background-color: #0e0e14;
+  border: 1px solid #393644;
+  border-radius: 5px;
+  outline: none;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.registro-grupo input:focus {
+  border-color: #806bb5;
+  box-shadow: 0 0 0 2px rgba(128, 107, 181, 0.2);
+}
+
+.registro-error,
+.registro-mensaje {
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.registro-error {
+  color: #ff8da1;
+}
+
+.registro-mensaje {
+  color: #b9a8e8;
+}
+
+.registro-boton {
+  width: 100%;
+  padding: 12px;
+  color: white;
+  background-color: #6b5fa7;
+  border: none;
+  border-radius: 5px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.registro-boton:hover {
+  background-color: #a54c7a;
+}
+
+.registro-login {
+  margin-top: 22px;
+  text-align: center;
+  color: #c6c2c8;
+  font-size: 0.85rem;
+}
+
+.registro-login a {
+  color: #bd5b88;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.registro-login a:hover {
+  color: #b9a8e8;
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .registro-contenedor {
+    padding: 25px 20px;
+  }
+}
