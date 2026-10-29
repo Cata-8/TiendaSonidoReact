@@ -5,7 +5,7 @@ import {
     cambiarCantidadItem,
     contarUnidades,
     eliminarItem,
-} from "../utils/carrito";
+} from "../utils/Carrito";
 import { crearStore, useStore } from "./CrearStore";
 
 // Misma clave que usaba el origen ("carrito")
