@@ -33,7 +33,8 @@ function Ubicacion(){
                     <div className="dato">
                         <div>
                             <h3>Contacto</h3>
-                            <p>+56 9 4354 0777</p>
+                            <p>Teléfono: +56 9 4354 0777</p>
+                            <p>Correo electrónico: sonidovivo@gmail.com</p>
                         </div>
                     </div>
                 </div>
