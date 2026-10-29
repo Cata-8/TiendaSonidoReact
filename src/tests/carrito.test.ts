@@ -2,7 +2,9 @@ import { expect, test } from "vitest";
 import type { ItemCarrito, Producto } from "../types/Producto";
 import {
     agregarItem, calcularTotal, cambiarCantidadItem, contarUnidades, eliminarItem,
-} from "../utils/carrito";
+
+
+} from "../utils/Carrito";
 import { formatearPrecio } from "../utils/Formato";
 
 const guitarra: Producto = {
