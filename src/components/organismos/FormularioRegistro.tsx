@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CampoFormulario from "../molecules/CampoFormulario";
-import { correoRepetido, runRepetido, useUsuarios } from "../../store/usuarios";
-import type { DatosUsuario, Rol } from "../../types/usuario";
-import { esClaveValida, validarFormularioUsuario } from "../../utils/validaciones";
+import { correoRepetido, runRepetido, useUsuarios } from "../../store/Usuarios";
+import type { DatosUsuario, Rol } from "../../types/Usuario";
+import { esClaveValida, validarFormularioUsuario } from "../../utils/Validaciones";
 
 const inicial = {
     run: "", nombre: "", apellidos: "", correo: "", fechaNacimiento: "", rol: "",

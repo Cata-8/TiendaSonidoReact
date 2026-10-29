@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import type { Producto } from "../../types/producto";
-import { formatearPrecio } from "../../utils/formato";
+import type { Producto } from "../../types/Producto";
+import { formatearPrecio } from "../../utils/Formato";
 
 interface TablaProductosProps{
     productos: Producto[];

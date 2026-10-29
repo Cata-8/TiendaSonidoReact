@@ -1,4 +1,4 @@
-import type { DatosUsuario } from "../types/usuario";
+import type { DatosUsuario } from "../types/Usuario";
 
 export const esCorreoValido = (correo: string): boolean =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo);

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import TablaUsuarios from "../../components/organismos/TablaUsuarios";
 import PaginaAdmin from "../../layouts/PaginaAdmin";
-import { useSesion } from "../../store/sesion";
-import { useUsuarios } from "../../store/usuarios";
+import { useSesion } from "../../store/Sesion";
+import { useUsuarios } from "../../store/Usuarios";
 
 function UsuariosAdmin(){
     const { usuarios, eliminar } = useUsuarios();

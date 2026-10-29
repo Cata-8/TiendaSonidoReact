@@ -1,4 +1,4 @@
-import type { Producto } from "../types/producto";
+import type { Producto } from "../types/Producto";
 
 // Catálogo base (migrado de catalogo.js). Las imágenes viven en /public/img
 export const catalogo: Producto[] = [

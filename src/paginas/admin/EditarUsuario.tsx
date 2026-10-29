@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import FormularioUsuario from "../../components/organismos/FormularioUsuario";
 import PaginaAdmin from "../../layouts/PaginaAdmin";
-import { useUsuarios } from "../../store/usuarios";
+import { useUsuarios } from "../../store/Usuarios";
 
 // Sirve para crear (/admin/usuarios/nuevo) y para editar (/admin/usuarios/:id/editar)
 function EditarUsuario(){

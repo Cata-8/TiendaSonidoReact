@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import type { Usuario } from "../../types/usuario";
+import type { Usuario } from "../../types/Usuario";
 
 interface TablaUsuariosProps{
     usuarios: Usuario[];

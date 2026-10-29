@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { useSesion } from "../store/sesion";
+import { useSesion } from "../store/Sesion";
 
 interface PaginaAdminProps{
     titulo: string;

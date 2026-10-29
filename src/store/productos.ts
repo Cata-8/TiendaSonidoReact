@@ -1,6 +1,6 @@
 import { catalogo } from "../data/catalogo";
-import type { Producto } from "../types/producto";
-import { crearStore, useStore } from "./crearStore";
+import type { Producto } from "../types/Producto";
+import { crearStore, useStore } from "./CrearStore";
 
 // Misma clave que usaba el origen en el panel admin ("productosAdmin").
 // Ahora es la fuente única: lo que se edita en el admin se ve en el catálogo público.

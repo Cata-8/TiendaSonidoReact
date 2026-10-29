@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom"
 import BotonVolver from "../components/atoms/BotonVolver"
-import { useCarrito } from "../store/carrito"
-import { useProductos } from "../store/productos"
-import { formatearPrecio } from "../utils/formato"
+import { useCarrito } from "../store/Carrito"
+import { useProductos } from "../store/Productos"
+import { formatearPrecio } from "../utils/Formato"
 
 function DetalleProducto(){
 

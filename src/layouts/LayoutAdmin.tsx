@@ -1,5 +1,5 @@
 import { Link, NavLink, Navigate, Outlet, useNavigate } from "react-router-dom";
-import { useSesion } from "../store/sesion";
+import { useSesion } from "../store/Sesion";
 
 // Marco del panel administrador (sidebar). Solo entra un usuario con rol admin.
 function LayoutAdmin() {
