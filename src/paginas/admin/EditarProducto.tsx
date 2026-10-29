@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import FormularioProducto from "../../components/organismos/FormularioProducto";
 import PaginaAdmin from "../../layouts/PaginaAdmin";
-import { useProductos } from "../../store/productos";
+import { useProductos } from "../../store/Productos";
 
 // Sirve para crear (/admin/productos/nuevo) y para editar (/admin/productos/:codigo/editar)
 function EditarProducto(){

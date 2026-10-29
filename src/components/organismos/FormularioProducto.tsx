@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CampoAdmin from "../molecules/CampoAdmin";
 import { categoriasProducto } from "../../data/categorias";
-import { useProductos } from "../../store/productos";
-import type { Producto } from "../../types/producto";
+import { useProductos } from "../../store/Productos";
+import type { Producto } from "../../types/Producto";
 
 interface FormularioProductoProps{
     producto?: Producto; // si viene, se está editando

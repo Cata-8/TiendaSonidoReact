@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CampoFormulario from "../molecules/CampoFormulario";
-import { iniciarSesion } from "../../store/sesion";
-import { esClaveValida, esCorreoValido } from "../../utils/validaciones";
+import { iniciarSesion } from "../../store/Sesion";
+import { esClaveValida, esCorreoValido } from "../../utils/Validaciones";
 
 function FormularioLogin(){
     const [correo, setCorreo] = useState("");

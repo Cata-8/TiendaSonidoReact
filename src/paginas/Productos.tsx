@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import CardProducto from "../components/molecules/CardProducto";
 import { categorias } from "../data/categorias";
-import { useProductos } from "../store/productos";
+import { useProductos } from "../store/Productos";
 
 // Una sola página para el catálogo completo (/productos) y para cada categoría (/productos/:categoria).
 // Reemplaza a catalogo.html, guitarras.html, bajos.html, baterias.html, teclados.html,

@@ -1,4 +1,4 @@
-import type { ItemCarrito, Producto } from "../types/producto";
+import type { ItemCarrito, Producto } from "../types/Producto";
 import {
     agregarItem,
     calcularTotal,
@@ -6,7 +6,7 @@ import {
     contarUnidades,
     eliminarItem,
 } from "../utils/carrito";
-import { crearStore, useStore } from "./crearStore";
+import { crearStore, useStore } from "./CrearStore";
 
 // Misma clave que usaba el origen ("carrito")
 export const carritoStore = crearStore<ItemCarrito[]>("carrito", () => []);

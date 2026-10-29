@@ -1,6 +1,6 @@
 import { usuariosBase } from "../data/usuariosBase";
-import type { DatosUsuario, Usuario } from "../types/usuario";
-import { crearStore, useStore } from "./crearStore";
+import type { DatosUsuario, Usuario } from "../types/Usuario";
+import { crearStore, useStore } from "./CrearStore";
 
 // Misma clave que usaba el origen ("usuarios")
 export const usuariosStore = crearStore<Usuario[]>("usuarios", () => usuariosBase);

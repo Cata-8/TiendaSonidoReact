@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import { Link, NavLink, useNavigate } from "react-router-dom"
 import { categorias } from "../../data/categorias"
-import { useCarrito } from "../../store/carrito"
-import { useSesion } from "../../store/sesion"
+import { useCarrito } from "../../store/Carrito"
+import { useSesion } from "../../store/Sesion"
 
 function Navbar(){
     const [menuAbierto, setMenuAbierto] = useState(false);
@@ -111,6 +111,11 @@ function Navbar(){
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/contacto" onClick={cerrarMenus}>
                                 Contacto
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/preguntas-frecuentes" onClick={cerrarMenus}>
+                                Preguntas frecuentes
                             </NavLink>
                         </li>
 

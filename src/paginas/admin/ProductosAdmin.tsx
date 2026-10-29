@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import TablaProductos from "../../components/organismos/TablaProductos";
 import PaginaAdmin from "../../layouts/PaginaAdmin";
-import { useProductos } from "../../store/productos";
+import { useProductos } from "../../store/Productos";
 
 function ProductosAdmin(){
     const { productos, eliminar } = useProductos();

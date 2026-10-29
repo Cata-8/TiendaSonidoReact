@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FilaCarrito from "../components/molecules/FilaCarrito";
 import ResumenCompra from "../components/organismos/ResumenCompra";
-import { useCarrito } from "../store/carrito";
+import { useCarrito } from "../store/Carrito";
 
 function Carrito(){
-    const { items, totalUnidades, total, cambiarCantidad, eliminar, vaciar } = useCarrito();
+    const { items, totalUnidades, total, cambiarCantidad, eliminar } = useCarrito();
+    const navigate = useNavigate();
 
     const finalizarCompra = () => {
         if (items.length === 0) {
@@ -12,8 +13,7 @@ function Carrito(){
             return;
         }
 
-        alert("¡Compra realizada con éxito! Gracias por tu compra en Sonido Vivo.");
-        vaciar();
+        navigate("/pago");
     };
 
     return(

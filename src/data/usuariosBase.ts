@@ -1,4 +1,4 @@
-import type { Usuario } from "../types/usuario";
+import type { Usuario } from "../types/Usuario";
 
 // Usuarios iniciales (migrados de admin.js -> inicializarUsuarios y de usuario.js -> sesion).
 // Las credenciales son las mismas que validaba login.js.

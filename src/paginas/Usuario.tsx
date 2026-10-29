@@ -1,5 +1,5 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useSesion } from "../store/sesion";
+import { useSesion } from "../store/Sesion";
 
 // Mi cuenta (usuario.html). Muestra los datos de quien inició sesión.
 function Usuario(){

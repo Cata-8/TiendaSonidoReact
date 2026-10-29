@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import TarjetaEstadistica from "../../components/molecules/TarjetaEstadistica";
 import PaginaAdmin from "../../layouts/PaginaAdmin";
-import { useCarrito } from "../../store/carrito";
-import { useProductos } from "../../store/productos";
-import { useUsuarios } from "../../store/usuarios";
+import { useCarrito } from "../../store/Carrito";
+import { useProductos } from "../../store/Productos";
+import { useUsuarios } from "../../store/Usuarios";
 
 function Dashboard(){
     const { productos } = useProductos();

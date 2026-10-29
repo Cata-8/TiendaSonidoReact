@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CampoAdmin from "../molecules/CampoAdmin";
-import { correoRepetido, runRepetido, useUsuarios } from "../../store/usuarios";
-import type { DatosUsuario, Rol, Usuario } from "../../types/usuario";
-import { esClaveValida, validarFormularioUsuario } from "../../utils/validaciones";
+import { correoRepetido, runRepetido, useUsuarios } from "../../store/Usuarios";
+import type { DatosUsuario, Rol, Usuario } from "../../types/Usuario";
+import { esClaveValida, validarFormularioUsuario } from "../../utils/Validaciones";
 
 interface FormularioUsuarioProps{
     usuario?: Usuario; // si viene, se está editando

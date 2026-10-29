@@ -1,4 +1,4 @@
-import { formatearPrecio } from "../../utils/formato";
+import { formatearPrecio } from "../../utils/Formato";
 
 interface ResumenCompraProps{
     unidades: number;
