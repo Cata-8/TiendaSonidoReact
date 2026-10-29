@@ -1,5 +1,5 @@
 import Boton from "../atoms/Boton";
-import { formatearPrecio } from "../../utils/formato";
+import { formatearPrecio } from "../../utils/Formato";
 
 interface CardProductoProps{
     id: string;
