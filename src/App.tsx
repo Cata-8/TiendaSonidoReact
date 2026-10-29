@@ -17,6 +17,8 @@ import ProductosAdmin from './paginas/admin/ProductosAdmin';
 import EditarProducto from './paginas/admin/EditarProducto';
 import UsuariosAdmin from './paginas/admin/UsuariosAdmin';
 import EditarUsuario from './paginas/admin/EditarUsuario';
+import Pago from './paginas/Pago';
+import PreguntasFrecuentes from "./paginas/PreguntasFrecuentes";
 
 function App() {
 
@@ -37,6 +39,11 @@ function App() {
         <Route path="/registro" element={<Registro/>} />
         <Route path="/usuario" element={<Usuario/>} />
         <Route path="*" element={<NoEncontrada/>} />
+        <Route path="/pago" element={<Pago/>} />
+        <Route
+          path="/preguntas-frecuentes"
+          element={<PreguntasFrecuentes />}
+        />
       </Route>
 
       {/* Panel administrador (solo rol admin) */}
