@@ -1,9 +1,9 @@
 import { expect, test } from "vitest";
-import type { ItemCarrito, Producto } from "../types/producto";
+import type { ItemCarrito, Producto } from "../types/Producto";
 import {
     agregarItem, calcularTotal, cambiarCantidadItem, contarUnidades, eliminarItem,
 } from "../utils/carrito";
-import { formatearPrecio } from "../utils/formato";
+import { formatearPrecio } from "../utils/Formato";
 
 const guitarra: Producto = {
     codigo: "GA001", categoria: "Guitarras Acústicas", nombre: "Guitarra Acústica Folk",
