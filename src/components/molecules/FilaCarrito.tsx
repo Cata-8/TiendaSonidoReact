@@ -1,5 +1,5 @@
-import type { ItemCarrito } from "../../types/producto";
-import { formatearPrecio } from "../../utils/formato";
+import type { ItemCarrito } from "../../types/Producto";
+import { formatearPrecio } from "../../utils/Formato";
 
 interface FilaCarritoProps{
     item: ItemCarrito;

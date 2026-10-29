@@ -7,7 +7,7 @@ function BotonVolver() {
             to={`/productos`}
             className="btn btn-primary"
         >
-            Volver a productos
+            Volver al Catálogo
         </Link>
     )
 

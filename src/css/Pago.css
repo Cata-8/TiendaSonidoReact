@@ -1,0 +1,41 @@
+/* Página de pago simulado */
+.sitio .pago-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 32px;
+    align-items: start;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 45px 4% 80px;
+}
+
+@media (max-width: 800px) {
+    .sitio .pago-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.sitio .pago-aviso {
+    margin-top: 18px;
+    font-size: 0.8rem;
+    color: var(--gris);
+    text-align: center;
+}
+
+.sitio .pago-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.sitio .pago-exito {
+    max-width: 640px;
+    padding: 60px 12px;
+}
+
+.sitio .pago-icono {
+    font-size: 4rem;
+    color: #4ade80;
+}

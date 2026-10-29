@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
-import type { DatosUsuario } from "../types/usuario";
-import { esClaveValida, esCorreoValido, esRunValido, validarFormularioUsuario } from "../utils/validaciones";
+import type { DatosUsuario } from "../types/Usuario";
+import { esClaveValida, esCorreoValido, esRunValido, validarFormularioUsuario } from "../utils/Validaciones";
 
 const usuarioValido: DatosUsuario = {
     run: "12345678K",

@@ -1,4 +1,4 @@
-import FormularioContacto from "./FormularioContacto";
+
 
 function Footer(){
     return(
@@ -21,7 +21,8 @@ function Footer(){
                 <div className="footer-columna">
                     <h3>CONTÁCTANOS</h3>
 
-                    <FormularioContacto />
+                    <p>Teléfono: +56 9 4354 0777</p>
+                    <p>Correo electrónico: sonidovivo@gmail.com</p>
                 </div>
 
             </div>

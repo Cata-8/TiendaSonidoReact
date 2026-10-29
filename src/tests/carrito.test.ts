@@ -1,7 +1,8 @@
 import { expect, test } from "vitest";
-import type { ItemCarrito, Producto } from "../types/producto";
+import type { ItemCarrito, Producto } from "../types/Producto";
 import {
     agregarItem, calcularTotal, cambiarCantidadItem, contarUnidades, eliminarItem,
+
 
 } from "../utils/Carrito";
 import { formatearPrecio } from "../utils/Formato";

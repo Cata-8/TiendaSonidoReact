@@ -6,7 +6,7 @@ import { MemoryRouter } from "react-router-dom";
 import Boton from "../components/atoms/Boton";
 
 
-test("el botón muestra el texto Ver producto", () => {
+test("el botón muestra el texto Ver Detalle", () => {
 
     render(
         <MemoryRouter>
@@ -14,7 +14,7 @@ test("el botón muestra el texto Ver producto", () => {
         </MemoryRouter>
     );
 
-    const boton = screen.getByText("Ver producto");
+    const boton = screen.getByText("Ver Detalle");
 
-    expect(boton.textContent).toBe("Ver producto");
+    expect(boton.textContent).toBe("Ver Detalle");
 });
