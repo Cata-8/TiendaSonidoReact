@@ -1,6 +1,6 @@
 import type { Usuario } from "../types/Usuario";
 import { crearStore, useStore } from "./CrearStore";
-import { usuariosStore } from "./Usuarios";
+import { usuariosStore } from "./usuarios";
 
 // Guarda solo el id del usuario con sesión iniciada.
 // El origen no tenía sesión real: login.js redirigía según credenciales fijas.
