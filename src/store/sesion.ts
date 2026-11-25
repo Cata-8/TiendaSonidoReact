@@ -1,19 +1,16 @@
+import { usuariosApi } from "../services/usuariosApi";
 import type { Usuario } from "../types/Usuario";
 import { crearStore, useStore } from "./CrearStore";
-import { usuariosStore } from "./usuarios";
 
-// Guarda solo el id del usuario con sesión iniciada.
-// El origen no tenía sesión real: login.js redirigía según credenciales fijas.
-export const sesionStore = crearStore<number | null>("sesion", () => null);
+// Guarda el usuario que devolvió el backend al iniciar sesión (nunca incluye la clave).
+// Se usa otra clave de localStorage ("sesionUsuario") porque antes se guardaba solo el id.
+// OJO: es una sesión "de cara al front": no hay token. Ver notas de seguridad en la guía.
+export const sesionStore = crearStore<Usuario | null>("sesionUsuario", () => null);
 
-export function iniciarSesion(correo: string, clave: string): Usuario | null {
-    const usuario = usuariosStore
-        .obtener()
-        .find((u) => u.correo === correo.trim() && u.clave === clave);
-
-    if (!usuario) return null;
-
-    sesionStore.guardar(usuario.id);
+// Lanza ErrorApi (401: "Correo o clave incorrectos") si las credenciales no sirven
+export async function iniciarSesion(correo: string, clave: string): Promise<Usuario> {
+    const usuario = await usuariosApi.login(correo.trim(), clave);
+    sesionStore.guardar(usuario);
     return usuario;
 }
 
@@ -22,9 +19,6 @@ export function cerrarSesion() {
 }
 
 export function useSesion() {
-    const id = useStore(sesionStore);
-    const usuarios = useStore(usuariosStore);
-    const usuario = id === null ? null : (usuarios.find((u) => u.id === id) ?? null);
-
+    const usuario = useStore(sesionStore);
     return { usuario, iniciarSesion, cerrarSesion };
 }

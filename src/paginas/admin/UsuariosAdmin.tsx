@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import TablaUsuarios from "../../components/organismos/TablaUsuarios";
 import PaginaAdmin from "../../layouts/PaginaAdmin";
-import { useSesion } from "../../store/Sesion";
-import { useUsuarios } from "../../store/Usuarios";
+import { mensajeDeError } from "../../services/api";
+import { useSesion } from "../../store/sesion";
+import { useUsuarios } from "../../store/usuarios";
 
 function UsuariosAdmin(){
-    const { usuarios, eliminar } = useUsuarios();
+    const { usuarios, eliminar, cargando, error, recargar } = useUsuarios(true);
     const { usuario: sesion } = useSesion();
     const [busqueda, setBusqueda] = useState("");
 
@@ -16,14 +17,18 @@ function UsuariosAdmin(){
         u.correo.toLowerCase().includes(texto)
     );
 
-    const pedirEliminar = (id: number) => {
+    const pedirEliminar = async (id: number) => {
         // Evita que el administrador se quede sin acceso al panel
         if (id === sesion?.id) {
             alert("No puedes eliminar tu propia cuenta mientras tienes la sesión iniciada");
             return;
         }
         if (!confirm("¿Seguro que quieres eliminar este usuario?")) return;
-        eliminar(id);
+        try {
+            await eliminar(id); // DELETE /api/usuarios/{id}
+        } catch (e) {
+            alert(mensajeDeError(e));
+        }
     };
 
     return(
@@ -45,6 +50,13 @@ function UsuariosAdmin(){
                         <i className="bi bi-person-plus"></i> Nuevo usuario
                     </Link>
                 </div>
+
+                {cargando && <p>Cargando usuarios...</p>}
+                {error && (
+                    <div className="alert alert-danger">
+                        {error} <button type="button" className="btn btn-sm btn-outline-danger ms-2" onClick={recargar}>Reintentar</button>
+                    </div>
+                )}
 
                 <TablaUsuarios usuarios={filtrados} alEliminar={pedirEliminar} />
             </div>

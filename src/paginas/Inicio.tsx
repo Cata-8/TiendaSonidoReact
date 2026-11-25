@@ -3,7 +3,7 @@ import Carrusel from "../components/organismos/Carrusel";
 import CardProducto from "../components/molecules/CardProducto";
 import CardCategoria from "../components/molecules/CardCategoria";
 import { categorias } from "../data/categorias";
-import { useProductos } from "../store/Productos";
+import { useProductos } from "../store/productos";
 import type { Producto } from "../types/Producto";
 
 // Códigos que el inicio.html original mostraba a mano

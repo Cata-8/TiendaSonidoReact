@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CampoFormulario from "../molecules/CampoFormulario";
-import { iniciarSesion } from "../../store/Sesion";
+import { mensajeDeError } from "../../services/api";
+import { iniciarSesion } from "../../store/sesion";
 import { esClaveValida, esCorreoValido } from "../../utils/Validaciones";
 
 function FormularioLogin(){
@@ -9,7 +10,7 @@ function FormularioLogin(){
     const [clave, setClave] = useState("");
     const navigate = useNavigate();
 
-    const manejarLogin = (e: React.SubmitEvent<HTMLFormElement>) => {
+    const manejarLogin = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (correo.trim() === "" || clave === "") {
@@ -25,15 +26,16 @@ function FormularioLogin(){
             return;
         }
 
-        const usuario = iniciarSesion(correo, clave);
+        try {
+            // Llama al microservicio de usuarios: POST /api/usuarios/login
+            const usuario = await iniciarSesion(correo, clave);
 
-        if (!usuario) {
-            alert("Correo o clave incorrectos");
-            return;
+            // El administrador va al panel y el cliente a su cuenta
+            navigate(usuario.rol === "admin" ? "/admin" : "/usuario");
+        } catch (error) {
+            // 401 -> "Correo o clave incorrectos"; sin conexión -> aviso de servidor apagado
+            alert(mensajeDeError(error));
         }
-
-        // Igual que login.js: el administrador va al panel y el cliente a su cuenta
-        navigate(usuario.rol === "admin" ? "/admin" : "/usuario");
     };
 
     return(

@@ -1,14 +1,14 @@
 import { Link, useParams } from "react-router-dom";
 import CardProducto from "../components/molecules/CardProducto";
 import { categorias } from "../data/categorias";
-import { useProductos } from "../store/Productos";
+import { useProductos } from "../store/productos";
 
 // Una sola página para el catálogo completo (/productos) y para cada categoría (/productos/:categoria).
 // Reemplaza a catalogo.html, guitarras.html, bajos.html, baterias.html, teclados.html,
 // amplificadores.html, microfonos.html, pedales.html, accesorios.html y estudio_grabacion.html
 function Productos(){
     const { categoria } = useParams();
-    const { productos } = useProductos();
+    const { productos, cargando, error, recargar } = useProductos();
 
     const seleccionada = categorias.find((c) => c.slug === categoria);
 
@@ -29,7 +29,18 @@ function Productos(){
         <div className="pagina-catalogo">
             <h1>{seleccionada ? seleccionada.titulo : "Catálogo de Productos"}</h1>
 
-            {lista.length === 0 && (
+            {cargando && <p className="text-center">Cargando productos...</p>}
+
+            {error && (
+                <div className="alert alert-danger text-center">
+                    {error}{" "}
+                    <button type="button" className="btn btn-sm btn-outline-danger" onClick={recargar}>
+                        Reintentar
+                    </button>
+                </div>
+            )}
+
+            {!cargando && !error && lista.length === 0 && (
                 <p className="text-center">No hay productos en esta categoría.</p>
             )}
 

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import FilaCarrito from "../components/molecules/FilaCarrito";
 import ResumenCompra from "../components/organismos/ResumenCompra";
-import { useCarrito } from "../store/Carrito";
+import { useCarrito } from "../store/carrito";
 
 function Carrito(){
     const { items, totalUnidades, total, cambiarCantidad, eliminar } = useCarrito();

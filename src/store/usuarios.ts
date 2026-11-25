@@ -1,35 +1,73 @@
-import { usuariosBase } from "../data/usuariosBase";
+import { mensajeDeError } from "../services/api";
+import { usuariosApi } from "../services/usuariosApi";
 import type { DatosUsuario, Usuario } from "../types/Usuario";
 import { crearStore, useStore } from "./CrearStore";
+import { sesionStore } from "./sesion";
+import { useEffect } from "react";
 
 // Misma clave que usaba el origen ("usuarios")
-export const usuariosStore = crearStore<Usuario[]>("usuarios", () => usuariosBase);
+export const usuariosStore = crearStore<Usuario[]>("usuarios", () => [], false);
 
-export const correoRepetido = (usuarios: Usuario[], correo: string, ignorarId?: number): boolean =>
-    usuarios.some((u) => u.correo === correo && u.id !== ignorarId);
+interface EstadoCarga {
+    cargado: boolean;
+    cargando: boolean;
+    error: string;
+}
 
-export const runRepetido = (usuarios: Usuario[], run: string, ignorarId?: number): boolean =>
-    run !== "" && usuarios.some((u) => u.run === run && u.id !== ignorarId);
+const estadoStore = crearStore<EstadoCarga>(
+    "usuariosEstado",
+    () => ({ cargado: false, cargando: false, error: "" }),
+    false
+);
 
-export function useUsuarios() {
+export async function cargarUsuarios(): Promise<void> {
+    if (estadoStore.obtener().cargando) return;
+
+    estadoStore.guardar({ cargado: estadoStore.obtener().cargado, cargando: true, error: "" });
+    try {
+        usuariosStore.guardar(await usuariosApi.listar());
+        estadoStore.guardar({ cargado: true, cargando: false, error: "" });
+    } catch (e) {
+        estadoStore.guardar({ cargado: false, cargando: false, error: mensajeDeError(e) });
+    }
+}
+
+// cargarLista = true solo en el panel admin: el registro público no necesita (ni debe pedir) todos los usuarios.
+export function useUsuarios(cargarLista = false) {
     const usuarios = useStore(usuariosStore);
+    const estado = useStore(estadoStore);
+
+    useEffect(() => {
+        const actual = estadoStore.obtener();
+        if (cargarLista && !actual.cargado && !actual.cargando && actual.error === "") {
+            void cargarUsuarios();
+        }
+    }, [cargarLista]);
 
     return {
         usuarios,
+        cargado: estado.cargado,
+        cargando: estado.cargando,
+        error: estado.error,
+        recargar: cargarUsuarios,
         buscar: (id: number) => usuarios.find((u) => u.id === id),
 
-        crear: (datos: DatosUsuario): Usuario => {
-            const actuales = usuariosStore.obtener();
-            const id = actuales.reduce((max, u) => Math.max(max, u.id), 0) + 1;
-            const nuevo: Usuario = { ...datos, id };
-            usuariosStore.guardar([...actuales, nuevo]);
-            return nuevo;
+        // Lanzan ErrorApi si el backend rechaza la operación (409 correo/RUN repetido, 400 datos inválidos...)
+        crear: async (datos: DatosUsuario): Promise<Usuario> => {
+            const creado = await usuariosApi.crear(datos);
+            usuariosStore.guardar([...usuariosStore.obtener(), creado]);
+            return creado;
         },
-        actualizar: (usuario: Usuario) =>
-            usuariosStore.guardar(
-                usuariosStore.obtener().map((u) => (u.id === usuario.id ? usuario : u))
-            ),
-        eliminar: (id: number) =>
-            usuariosStore.guardar(usuariosStore.obtener().filter((u) => u.id !== id)),
+        actualizar: async (id: number, datos: DatosUsuario): Promise<void> => {
+            const guardado = await usuariosApi.actualizar(id, datos);
+            usuariosStore.guardar(usuariosStore.obtener().map((u) => (u.id === id ? guardado : u)));
+
+            // Si el admin se editó a sí mismo, se refresca también la sesión
+            if (sesionStore.obtener()?.id === id) sesionStore.guardar(guardado);
+        },
+        eliminar: async (id: number): Promise<void> => {
+            await usuariosApi.eliminar(id);
+            usuariosStore.guardar(usuariosStore.obtener().filter((u) => u.id !== id));
+        },
     };
 }

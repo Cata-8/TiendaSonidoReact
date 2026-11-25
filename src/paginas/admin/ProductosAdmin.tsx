@@ -2,10 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import TablaProductos from "../../components/organismos/TablaProductos";
 import PaginaAdmin from "../../layouts/PaginaAdmin";
-import { useProductos } from "../../store/Productos";
+import { mensajeDeError } from "../../services/api";
+import { useProductos } from "../../store/productos";
 
 function ProductosAdmin(){
-    const { productos, eliminar } = useProductos();
+    const { productos, eliminar, cargando, error, recargar } = useProductos();
     const [busqueda, setBusqueda] = useState("");
 
     const texto = busqueda.toLowerCase();
@@ -15,9 +16,13 @@ function ProductosAdmin(){
         p.codigo.toLowerCase().includes(texto)
     );
 
-    const pedirEliminar = (codigo: string) => {
+    const pedirEliminar = async (codigo: string) => {
         if (!confirm("¿Seguro que quieres eliminar este producto?")) return;
-        eliminar(codigo);
+        try {
+            await eliminar(codigo); // DELETE /api/productos/{codigo}
+        } catch (e) {
+            alert(mensajeDeError(e));
+        }
     };
 
     return(
@@ -39,6 +44,13 @@ function ProductosAdmin(){
                         <i className="bi bi-plus-lg"></i> Nuevo producto
                     </Link>
                 </div>
+
+                {cargando && <p>Cargando productos...</p>}
+                {error && (
+                    <div className="alert alert-danger">
+                        {error} <button type="button" className="btn btn-sm btn-outline-danger ms-2" onClick={recargar}>Reintentar</button>
+                    </div>
+                )}
 
                 <TablaProductos productos={filtrados} alEliminar={pedirEliminar} />
             </div>

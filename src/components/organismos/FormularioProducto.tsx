@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CampoAdmin from "../molecules/CampoAdmin";
 import { categoriasProducto } from "../../data/categorias";
-import { useProductos } from "../../store/Productos";
+import { mensajeDeError } from "../../services/api";
+import { useProductos } from "../../store/productos";
 import type { Producto } from "../../types/Producto";
 
 interface FormularioProductoProps{
@@ -29,7 +30,7 @@ function FormularioProducto({ producto }: FormularioProductoProps) {
     const cambiar = (campo: keyof typeof form) => (valor: string) =>
         setForm((anterior) => ({ ...anterior, [campo]: valor }));
 
-    const guardar = (e: React.SubmitEvent<HTMLFormElement>) => {
+    const guardar = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const datos: Producto = {
@@ -54,15 +55,18 @@ function FormularioProducto({ producto }: FormularioProductoProps) {
             return;
         }
 
-        if (editando) {
-            actualizar(datos);
-        } else if (!crear(datos)) {
-            alert("Ya existe un producto con ese código. Usa uno distinto.");
-            return;
-        }
+        try {
+            if (editando) {
+                await actualizar(datos); // PUT /api/productos/{codigo}
+            } else {
+                await crear(datos);      // POST /api/productos (409 si el código ya existe)
+            }
 
-        alert(editando ? "Producto actualizado correctamente" : "Producto creado correctamente");
-        navigate("/admin/productos");
+            alert(editando ? "Producto actualizado correctamente" : "Producto creado correctamente");
+            navigate("/admin/productos");
+        } catch (error) {
+            alert(mensajeDeError(error));
+        }
     };
 
     return(

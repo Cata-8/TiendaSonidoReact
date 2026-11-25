@@ -1,5 +1,7 @@
 import { useState } from "react";
 import CampoFormulario from "../molecules/CampoFormulario";
+import { mensajeDeError } from "../../services/api";
+import { contactosApi } from "../../services/contactosApi";
 
 function FormularioContacto(){
 
@@ -7,7 +9,7 @@ function FormularioContacto(){
     const [correo, setCorreo] = useState("");
     const [mensaje, setMensaje] = useState("");
 
-    const manejarEnvio = (e: React.SubmitEvent<HTMLFormElement>) => {
+    const manejarEnvio = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (nombre.trim() === ""){
@@ -26,7 +28,17 @@ function FormularioContacto(){
             alert("Debe ingresar un mensaje");
             return;
         }
-        alert("Formulario enviado correctamente");
+
+        try {
+            // POST /api/contactos (microservicio de mensajería)
+            await contactosApi.enviar(nombre.trim(), correo.trim(), mensaje.trim());
+            alert("Formulario enviado correctamente");
+            setNombre("");
+            setCorreo("");
+            setMensaje("");
+        } catch (error) {
+            alert(mensajeDeError(error));
+        }
     };
 
     return(

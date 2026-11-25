@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import { Link, NavLink, useNavigate } from "react-router-dom"
 import { categorias } from "../../data/categorias"
-import { useCarrito } from "../../store/Carrito"
-import { useSesion } from "../../store/Sesion"
+import { useCarrito } from "../../store/carrito"
+import { useSesion } from "../../store/sesion"
 
 function Navbar(){
     const [menuAbierto, setMenuAbierto] = useState(false);

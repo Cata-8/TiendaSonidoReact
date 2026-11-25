@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import CampoFormulario from "../components/molecules/CampoFormulario";
-import { useCarrito } from "../store/Carrito";
+import { mensajeDeError } from "../services/api";
+import { pedidosApi } from "../services/pedidosApi";
+import { useCarrito } from "../store/carrito";
+import { cargarProductos } from "../store/productos";
+import { useSesion } from "../store/sesion";
 import { formatearPrecio } from "../utils/Formato";
 import {
     formatearNumeroTarjeta,
@@ -20,7 +24,8 @@ interface Pedido {
 
 // Pantalla de pago SIMULADA: no se guarda ni se envía ningún dato de la tarjeta
 function Pago(){
-    const { items, total, totalUnidades, vaciar } = useCarrito();
+    const { items, total, vaciar } = useCarrito();
+    const { usuario } = useSesion();
 
     const [titular, setTitular] = useState("");
     const [numero, setNumero] = useState("");
@@ -36,7 +41,7 @@ function Pago(){
         return <Navigate to="/carrito" replace />;
     }
 
-    const pagar = (e: React.SubmitEvent<HTMLFormElement>) => {
+    const pagar = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const resultado = validarPago({ titular, numero, vencimiento, cvv });
@@ -48,26 +53,29 @@ function Pago(){
         setError("");
         setEstado("procesando");
 
-        // Se guarda lo que se está pagando, porque el carrito se vacía al aprobar
-        const montoPagado = total;
-        const unidades = totalUnidades;
+        // Simula el tiempo que demora el banco en responder (la tarjeta sigue siendo simulada)
+        await new Promise((resolver) => setTimeout(resolver, 1500));
 
-        // Simula el tiempo que demora el banco en responder
-        setTimeout(() => {
-            if (tarjetaRechazada(numero)) {
-                setError("El banco rechazó el pago. Prueba con otra tarjeta.");
-                setEstado("formulario");
-                return;
-            }
+        if (tarjetaRechazada(numero)) {
+            setError("El banco rechazó el pago. Prueba con otra tarjeta.");
+            setEstado("formulario");
+            return;
+        }
 
-            setPedido({
-                numero: "SV-" + Math.floor(100000 + Math.random() * 900000),
-                total: montoPagado,
-                unidades,
-            });
+        try {
+            // POST /api/pedidos: el servidor valida usuario y stock, calcula el total,
+            // descuenta el stock en catálogo y guarda el pedido. Solo viajan código y cantidad.
+            const creado = await pedidosApi.crear(usuario?.id ?? null, items);
+
+            setPedido({ numero: creado.numero, total: creado.total, unidades: creado.unidades });
             setEstado("aprobado");
             vaciar();
-        }, 2000);
+            void cargarProductos(); // el stock cambió: se vuelve a pedir el catálogo
+        } catch (e) {
+            // ej: 409 "Stock insuficiente para ...", 503 "El servicio de catálogo no está disponible"
+            setError(mensajeDeError(e));
+            setEstado("formulario");
+        }
     };
 
     if (estado === "aprobado" && pedido) {

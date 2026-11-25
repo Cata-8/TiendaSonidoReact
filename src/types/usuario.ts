@@ -11,8 +11,9 @@ export interface Usuario {
     region: string;
     comuna: string;
     direccion: string;
-    clave: string;
+    // El backend NUNCA devuelve la clave; solo se usa al enviar el formulario (crear/editar)
+    clave?: string;
 }
 
 // Lo que escribe la persona en los formularios (sin id)
-export type DatosUsuario = Omit<Usuario, "id">;
+export type DatosUsuario = Omit<Usuario, "id" | "clave"> & { clave: string };

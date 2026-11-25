@@ -1,14 +1,23 @@
 import { Link, useParams } from "react-router-dom";
 import FormularioProducto from "../../components/organismos/FormularioProducto";
 import PaginaAdmin from "../../layouts/PaginaAdmin";
-import { useProductos } from "../../store/Productos";
+import { useProductos } from "../../store/productos";
 
 // Sirve para crear (/admin/productos/nuevo) y para editar (/admin/productos/:codigo/editar)
 function EditarProducto(){
     const { codigo } = useParams();
-    const { buscar } = useProductos();
+    const { buscar, cargado, error } = useProductos();
 
     const producto = codigo ? buscar(codigo) : undefined;
+
+    // Mientras llegan los datos del servidor no se muestra "no encontrado"
+    if (codigo && !producto && !cargado && !error) {
+        return(
+            <PaginaAdmin titulo="Editar Producto">
+                <div className="admin-panel-box"><p>Cargando...</p></div>
+            </PaginaAdmin>
+        )
+    }
 
     if (codigo && !producto) {
         return(

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CampoFormulario from "../molecules/CampoFormulario";
-import { correoRepetido, runRepetido, useUsuarios } from "../../store/Usuarios";
+import { mensajeDeError } from "../../services/api";
+import { useUsuarios } from "../../store/usuarios";
 import type { DatosUsuario, Rol } from "../../types/Usuario";
 import { esClaveValida, validarFormularioUsuario } from "../../utils/Validaciones";
 
@@ -12,13 +13,13 @@ const inicial = {
 
 function FormularioRegistro(){
     const [form, setForm] = useState(inicial);
-    const { usuarios, crear } = useUsuarios();
+    const { crear } = useUsuarios();
     const navigate = useNavigate();
 
     const cambiar = (campo: keyof typeof inicial) => (valor: string) =>
         setForm((anterior) => ({ ...anterior, [campo]: valor }));
 
-    const manejarRegistro = (e: React.SubmitEvent<HTMLFormElement>) => {
+    const manejarRegistro = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const datos: DatosUsuario = {
@@ -51,18 +52,15 @@ function FormularioRegistro(){
             alert("Las claves no coinciden");
             return;
         }
-        if (correoRepetido(usuarios, datos.correo)) {
-            alert("Ya existe una cuenta registrada con ese correo");
-            return;
-        }
-        if (runRepetido(usuarios, datos.run)) {
-            alert("Ya existe una cuenta registrada con ese RUN");
-            return;
-        }
 
-        crear(datos);
-        alert("Cuenta creada correctamente");
-        navigate("/login");
+        try {
+            // POST /api/usuarios. Correo y RUN repetidos los valida el servidor (409)
+            await crear(datos);
+            alert("Cuenta creada correctamente");
+            navigate("/login");
+        } catch (error) {
+            alert(mensajeDeError(error));
+        }
     };
 
     return(

@@ -9,10 +9,12 @@ export interface Store<T> {
 
 // Pequeño store persistido en localStorage. Reemplaza los
 // JSON.parse(localStorage.getItem(...)) / localStorage.setItem(...) repartidos en el origen.
-export function crearStore<T>(clave: string, valorInicial: () => T): Store<T> {
+// persistir = false: el estado vive solo en memoria (datos que vienen del backend, que es la fuente de verdad)
+export function crearStore<T>(clave: string, valorInicial: () => T, persistir = true): Store<T> {
     const oyentes = new Set<() => void>();
 
     function leer(): T {
+        if (!persistir) return valorInicial();
         try {
             const crudo = localStorage.getItem(clave);
             if (crudo !== null) return JSON.parse(crudo) as T;
@@ -26,10 +28,12 @@ export function crearStore<T>(clave: string, valorInicial: () => T): Store<T> {
 
     function guardar(nuevo: T) {
         estado = nuevo;
-        try {
-            localStorage.setItem(clave, JSON.stringify(nuevo));
-        } catch {
-            // si no se puede persistir, igual queda en memoria
+        if (persistir) {
+            try {
+                localStorage.setItem(clave, JSON.stringify(nuevo));
+            } catch {
+                // si no se puede persistir, igual queda en memoria
+            }
         }
         oyentes.forEach((oyente) => oyente());
     }

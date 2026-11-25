@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import TarjetaEstadistica from "../../components/molecules/TarjetaEstadistica";
 import PaginaAdmin from "../../layouts/PaginaAdmin";
-import { useCarrito } from "../../store/Carrito";
-import { useProductos } from "../../store/Productos";
-import { useUsuarios } from "../../store/Usuarios";
+import { useCarrito } from "../../store/carrito";
+import { useProductos } from "../../store/productos";
+import { useUsuarios } from "../../store/usuarios";
 
 function Dashboard(){
     const { productos } = useProductos();
-    const { usuarios } = useUsuarios();
+    const { usuarios } = useUsuarios(true);
     const { totalUnidades } = useCarrito();
 
     const stockBajo = productos.filter((p) => p.stock <= 3).length;

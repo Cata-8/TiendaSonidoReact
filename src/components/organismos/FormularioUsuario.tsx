@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CampoAdmin from "../molecules/CampoAdmin";
-import { correoRepetido, runRepetido, useUsuarios } from "../../store/Usuarios";
+import { mensajeDeError } from "../../services/api";
+import { useUsuarios } from "../../store/usuarios";
 import type { DatosUsuario, Rol, Usuario } from "../../types/Usuario";
 import { esClaveValida, validarFormularioUsuario } from "../../utils/Validaciones";
 
@@ -11,7 +12,7 @@ interface FormularioUsuarioProps{
 
 function FormularioUsuario({ usuario }: FormularioUsuarioProps) {
     const editando = usuario !== undefined;
-    const { usuarios, crear, actualizar } = useUsuarios();
+    const { crear, actualizar } = useUsuarios();
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
@@ -24,13 +25,13 @@ function FormularioUsuario({ usuario }: FormularioUsuarioProps) {
         region: usuario?.region ?? "",
         comuna: usuario?.comuna ?? "",
         direccion: usuario?.direccion ?? "",
-        clave: usuario?.clave ?? "",
+        clave: "", // el backend nunca devuelve la clave; vacía al editar = conservar la actual
     });
 
     const cambiar = (campo: keyof typeof form) => (valor: string) =>
         setForm((anterior) => ({ ...anterior, [campo]: valor }));
 
-    const guardar = (e: React.SubmitEvent<HTMLFormElement>) => {
+    const guardar = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const datos: DatosUsuario = {
@@ -51,27 +52,24 @@ function FormularioUsuario({ usuario }: FormularioUsuarioProps) {
             alert(resultado.mensaje);
             return;
         }
-        if (!esClaveValida(datos.clave)) {
+        // Al editar, la clave es opcional (vacía = no se cambia); al crear es obligatoria
+        if ((!editando || datos.clave !== "") && !esClaveValida(datos.clave)) {
             alert("La clave debe tener 4 dígitos");
             return;
         }
-        if (correoRepetido(usuarios, datos.correo, usuario?.id)) {
-            alert("Ya existe un usuario con ese correo");
-            return;
-        }
-        if (runRepetido(usuarios, datos.run, usuario?.id)) {
-            alert("Ya existe un usuario con ese RUN");
-            return;
-        }
 
-        if (usuario) {
-            actualizar({ ...datos, id: usuario.id });
-        } else {
-            crear(datos);
-        }
+        try {
+            if (usuario) {
+                await actualizar(usuario.id, datos); // PUT /api/usuarios/{id}
+            } else {
+                await crear(datos);                  // POST /api/usuarios
+            }
 
-        alert(editando ? "Usuario actualizado correctamente" : "Usuario creado correctamente");
-        navigate("/admin/usuarios");
+            alert(editando ? "Usuario actualizado correctamente" : "Usuario creado correctamente");
+            navigate("/admin/usuarios");
+        } catch (error) {
+            alert(mensajeDeError(error)); // ej: 409 "Ya existe una cuenta registrada con ese correo"
+        }
     };
 
     return(
@@ -97,7 +95,7 @@ function FormularioUsuario({ usuario }: FormularioUsuarioProps) {
                 <CampoAdmin etiqueta="Comuna" nombre="comuna" valor={form.comuna} alCambiar={cambiar("comuna")} />
                 <CampoAdmin etiqueta="Dirección" nombre="direccion" valor={form.direccion}
                     alCambiar={cambiar("direccion")} maxLength={300} completo />
-                <CampoAdmin etiqueta="Clave (4 dígitos)" nombre="clave" tipo="password" valor={form.clave}
+                <CampoAdmin etiqueta={editando ? "Clave nueva (vacía = no cambiar)" : "Clave (4 dígitos)"} nombre="clave" tipo="password" valor={form.clave}
                     alCambiar={cambiar("clave")} maxLength={4} />
             </div>
 
