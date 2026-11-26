@@ -5,7 +5,6 @@ import { mensajeDeError } from "../services/api";
 import { pedidosApi } from "../services/pedidosApi";
 import { useCarrito } from "../store/carrito";
 import { cargarProductos } from "../store/productos";
-import { useSesion } from "../store/sesion";
 import { formatearPrecio } from "../utils/Formato";
 import {
     formatearNumeroTarjeta,
@@ -25,7 +24,6 @@ interface Pedido {
 // Pantalla de pago SIMULADA: no se guarda ni se envía ningún dato de la tarjeta
 function Pago(){
     const { items, total, vaciar } = useCarrito();
-    const { usuario } = useSesion();
 
     const [titular, setTitular] = useState("");
     const [numero, setNumero] = useState("");
@@ -63,9 +61,10 @@ function Pago(){
         }
 
         try {
-            // POST /api/pedidos: el servidor valida usuario y stock, calcula el total,
-            // descuenta el stock en catálogo y guarda el pedido. Solo viajan código y cantidad.
-            const creado = await pedidosApi.crear(usuario?.id ?? null, items);
+            // POST /api/pedidos: el servidor toma el comprador del token JWT, valida el stock,
+            // calcula el total, descuenta el stock en catálogo y guarda el pedido.
+            // Solo viajan código y cantidad (la ruta /pago exige sesión: ver RutaProtegida en App.tsx).
+            const creado = await pedidosApi.crear(items);
 
             setPedido({ numero: creado.numero, total: creado.total, unidades: creado.unidades });
             setEstado("aprobado");

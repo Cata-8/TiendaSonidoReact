@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CampoFormulario from "../molecules/CampoFormulario";
 import { mensajeDeError } from "../../services/api";
 import { iniciarSesion } from "../../store/sesion";
@@ -9,6 +9,9 @@ function FormularioLogin(){
     const [correo, setCorreo] = useState("");
     const [clave, setClave] = useState("");
     const navigate = useNavigate();
+    const ubicacion = useLocation();
+    // RutaProtegida deja aquí la página que la persona quería abrir (ej: /pago)
+    const desde = (ubicacion.state as { desde?: string } | null)?.desde;
 
     const manejarLogin = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -31,7 +34,7 @@ function FormularioLogin(){
             const usuario = await iniciarSesion(correo, clave);
 
             // El administrador va al panel y el cliente a su cuenta
-            navigate(usuario.rol === "admin" ? "/admin" : "/usuario");
+            navigate(usuario.rol === "admin" ? "/admin" : (desde ?? "/usuario"));
         } catch (error) {
             // 401 -> "Correo o clave incorrectos"; sin conexión -> aviso de servidor apagado
             alert(mensajeDeError(error));

@@ -1,7 +1,13 @@
-import type { DatosUsuario, Usuario } from "../types/Usuario";
+import type { DatosUsuario, Usuario } from "../types/usuario";
 import { pedir, URL_USUARIOS } from "./api";
 
 const base = `${URL_USUARIOS}/api/usuarios`;
+
+// Respuesta del login: el token JWT y los datos del usuario (sin clave)
+export interface LoginRespuesta {
+    token: string;
+    usuario: Usuario;
+}
 
 export const usuariosApi = {
     listar: () => pedir<Usuario[]>(base),
@@ -15,7 +21,11 @@ export const usuariosApi = {
 
     eliminar: (id: number) => pedir<void>(`${base}/${id}`, { method: "DELETE" }),
 
-    // 401 si correo/clave son incorrectos
+    // 401 si correo/clave son incorrectos. Sin token: todavía no hay sesión.
     login: (correo: string, clave: string) =>
-        pedir<Usuario>(`${base}/login`, { method: "POST", body: JSON.stringify({ correo, clave }) }),
+        pedir<LoginRespuesta>(
+            `${base}/login`,
+            { method: "POST", body: JSON.stringify({ correo, clave }) },
+            false
+        ),
 };

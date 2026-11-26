@@ -15,6 +15,7 @@ import './css/admin.css'
 import './css/pago.css'
 import './css/preguntasFrecuentes.css'
 import './css/QuienesSomos.css'
+import './store/sesion'   // configura el token JWT antes de la primera petición
 import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(

@@ -1,7 +1,8 @@
-import { useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import BotonVolver from "../components/atoms/BotonVolver"
 import { useCarrito } from "../store/carrito"
 import { useProductos } from "../store/productos"
+import { useSesion } from "../store/sesion"
 import { formatearPrecio } from "../utils/Formato"
 
 function DetalleProducto(){
@@ -9,6 +10,7 @@ function DetalleProducto(){
     const {id} = useParams()
     const { buscar, cargado, error } = useProductos()
     const { agregar } = useCarrito()
+    const { esAdmin } = useSesion()
     const navigate = useNavigate()
 
     const producto = id ? buscar(id) : undefined
@@ -58,6 +60,12 @@ function DetalleProducto(){
                 <button type="button" className="btn-detalle btn-primario" onClick={agregarYVer}>
                     Agregar al carrito
                 </button>
+                {/* Acción restringida: solo la ve un administrador (el backend también lo exige) */}
+                {esAdmin && (
+                    <Link to={`/admin/productos/${producto.codigo}/editar`} className="btn-detalle">
+                        Editar producto
+                    </Link>
+                )}
                 <BotonVolver/>
             </div>
         </div>

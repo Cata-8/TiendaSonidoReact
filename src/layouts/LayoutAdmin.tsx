@@ -34,6 +34,9 @@ function LayoutAdmin() {
                         <NavLink to="/admin/usuarios">
                             <i className="bi bi-people-fill"></i><span>Usuarios</span>
                         </NavLink>
+                        <NavLink to="/admin/mensajes">
+                            <i className="bi bi-envelope-fill"></i><span>Mensajes</span>
+                        </NavLink>
                     </nav>
 
                     <div className="admin-sidebar-footer">

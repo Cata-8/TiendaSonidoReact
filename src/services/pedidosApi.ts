@@ -1,4 +1,4 @@
-import type { ItemCarrito } from "../types/Producto";
+import type { ItemCarrito } from "../types/producto";
 import { pedir, URL_COMPRAS } from "./api";
 
 const base = `${URL_COMPRAS}/api/pedidos`;
@@ -23,12 +23,12 @@ export interface PedidoCreado {
 }
 
 export const pedidosApi = {
-    // El precio NO se envía: el servidor lo toma del catálogo
-    crear: (usuarioId: number | null, items: ItemCarrito[]) =>
+    // Ni el precio ni el comprador se envían: el servidor toma el precio del catálogo
+    // y el comprador del token JWT.
+    crear: (items: ItemCarrito[]) =>
         pedir<PedidoCreado>(base, {
             method: "POST",
             body: JSON.stringify({
-                usuarioId,
                 items: items.map((i) => ({ codigo: i.codigo, cantidad: i.cantidad })),
             }),
         }),

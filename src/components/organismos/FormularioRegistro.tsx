@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import CampoFormulario from "../molecules/CampoFormulario";
 import { mensajeDeError } from "../../services/api";
 import { useUsuarios } from "../../store/usuarios";
-import type { DatosUsuario, Rol } from "../../types/Usuario";
+import type { DatosUsuario } from "../../types/usuario";
 import { esClaveValida, validarFormularioUsuario } from "../../utils/Validaciones";
 
 const inicial = {
-    run: "", nombre: "", apellidos: "", correo: "", fechaNacimiento: "", rol: "",
+    run: "", nombre: "", apellidos: "", correo: "", fechaNacimiento: "",
     region: "", comuna: "", direccion: "", clave: "", confirmarClave: "",
 };
 
@@ -28,7 +28,7 @@ function FormularioRegistro(){
             apellidos: form.apellidos.trim(),
             correo: form.correo.trim(),
             fechaNacimiento: form.fechaNacimiento,
-            rol: form.rol as Rol,
+            rol: "cliente", // el registro público solo crea clientes (el backend también lo fuerza)
             region: form.region.trim(),
             comuna: form.comuna.trim(),
             direccion: form.direccion.trim(),
@@ -75,13 +75,6 @@ function FormularioRegistro(){
                 valor={form.correo} alCambiar={cambiar("correo")} maxLength={100} />
             <CampoFormulario etiqueta="Fecha de nacimiento (opcional)" tipo="date" nombre="fechaNacimiento"
                 valor={form.fechaNacimiento} alCambiar={cambiar("fechaNacimiento")} />
-            <CampoFormulario etiqueta="Tipo de usuario" tipo="select" nombre="rol"
-                valor={form.rol} alCambiar={cambiar("rol")}
-                placeholder="Seleccione tipo de usuario"
-                opciones={[
-                    { valor: "cliente", etiqueta: "Cliente" },
-                    { valor: "admin", etiqueta: "Administrador" },
-                ]} />
             <CampoFormulario etiqueta="Región" tipo="text" nombre="region"
                 valor={form.region} alCambiar={cambiar("region")} />
             <CampoFormulario etiqueta="Comuna" tipo="text" nombre="comuna"

@@ -1,11 +1,11 @@
 import { mensajeDeError } from "../services/api";
 import { usuariosApi } from "../services/usuariosApi";
-import type { DatosUsuario, Usuario } from "../types/Usuario";
+import type { DatosUsuario, Usuario } from "../types/usuario";
 import { crearStore, useStore } from "./CrearStore";
 import { sesionStore } from "./sesion";
 import { useEffect } from "react";
 
-// Misma clave que usaba el origen ("usuarios")
+// La fuente de verdad es el microservicio de usuarios (puerto 8081).
 export const usuariosStore = crearStore<Usuario[]>("usuarios", () => [], false);
 
 interface EstadoCarga {
@@ -63,7 +63,8 @@ export function useUsuarios(cargarLista = false) {
             usuariosStore.guardar(usuariosStore.obtener().map((u) => (u.id === id ? guardado : u)));
 
             // Si el admin se editó a sí mismo, se refresca también la sesión
-            if (sesionStore.obtener()?.id === id) sesionStore.guardar(guardado);
+            const sesion = sesionStore.obtener();
+            if (sesion?.usuario.id === id) sesionStore.guardar({ ...sesion, usuario: guardado });
         },
         eliminar: async (id: number): Promise<void> => {
             await usuariosApi.eliminar(id);

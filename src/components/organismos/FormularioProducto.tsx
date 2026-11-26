@@ -4,7 +4,7 @@ import CampoAdmin from "../molecules/CampoAdmin";
 import { categoriasProducto } from "../../data/categorias";
 import { mensajeDeError } from "../../services/api";
 import { useProductos } from "../../store/productos";
-import type { Producto } from "../../types/Producto";
+import type { Producto } from "../../types/producto";
 
 interface FormularioProductoProps{
     producto?: Producto; // si viene, se está editando

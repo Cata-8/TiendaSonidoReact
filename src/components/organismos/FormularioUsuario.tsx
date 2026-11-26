@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import CampoAdmin from "../molecules/CampoAdmin";
 import { mensajeDeError } from "../../services/api";
 import { useUsuarios } from "../../store/usuarios";
-import type { DatosUsuario, Rol, Usuario } from "../../types/Usuario";
+import type { DatosUsuario, Rol, Usuario } from "../../types/usuario";
 import { esClaveValida, validarFormularioUsuario } from "../../utils/Validaciones";
 
 interface FormularioUsuarioProps{

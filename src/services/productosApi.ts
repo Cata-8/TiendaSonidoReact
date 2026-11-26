@@ -1,4 +1,4 @@
-import type { Producto } from "../types/Producto";
+import type { Producto } from "../types/producto";
 import { pedir, URL_CATALOGO } from "./api";
 
 const base = `${URL_CATALOGO}/api/productos`;

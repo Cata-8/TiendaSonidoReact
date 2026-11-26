@@ -19,6 +19,9 @@ import UsuariosAdmin from './paginas/admin/UsuariosAdmin';
 import EditarUsuario from './paginas/admin/EditarUsuario';
 import Pago from './paginas/Pago';
 import PreguntasFrecuentes from "./paginas/PreguntasFrecuentes";
+import AccesoDenegado from './paginas/AccesoDenegado';
+import MensajesAdmin from './paginas/admin/MensajesAdmin';
+import RutaProtegida from './components/organismos/RutaProtegida';
 
 function App() {
 
@@ -37,9 +40,15 @@ function App() {
         <Route path="/ubicacion" element={<Ubicacion/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/registro" element={<Registro/>} />
-        <Route path="/usuario" element={<Usuario/>} />
+        <Route path="/acceso-denegado" element={<AccesoDenegado/>} />
+
+        {/* Requieren sesión iniciada (cualquier rol) */}
+        <Route element={<RutaProtegida />}>
+          <Route path="/usuario" element={<Usuario/>} />
+          <Route path="/pago" element={<Pago/>} />
+        </Route>
+
         <Route path="*" element={<NoEncontrada/>} />
-        <Route path="/pago" element={<Pago/>} />
         <Route
           path="/preguntas-frecuentes"
           element={<PreguntasFrecuentes />}
@@ -47,14 +56,17 @@ function App() {
       </Route>
 
       {/* Panel administrador (solo rol admin) */}
-      <Route path="/admin" element={<LayoutAdmin />}>
-        <Route index element={<Dashboard/>} />
-        <Route path="productos" element={<ProductosAdmin/>} />
-        <Route path="productos/nuevo" element={<EditarProducto/>} />
-        <Route path="productos/:codigo/editar" element={<EditarProducto/>} />
-        <Route path="usuarios" element={<UsuariosAdmin/>} />
-        <Route path="usuarios/nuevo" element={<EditarUsuario/>} />
-        <Route path="usuarios/:id/editar" element={<EditarUsuario/>} />
+      <Route element={<RutaProtegida roles={["admin"]} />}>
+        <Route path="/admin" element={<LayoutAdmin />}>
+          <Route index element={<Dashboard/>} />
+          <Route path="productos" element={<ProductosAdmin/>} />
+          <Route path="productos/nuevo" element={<EditarProducto/>} />
+          <Route path="productos/:codigo/editar" element={<EditarProducto/>} />
+          <Route path="usuarios" element={<UsuariosAdmin/>} />
+          <Route path="usuarios/nuevo" element={<EditarUsuario/>} />
+          <Route path="usuarios/:id/editar" element={<EditarUsuario/>} />
+          <Route path="mensajes" element={<MensajesAdmin/>} />
+        </Route>
       </Route>
 
     </Routes>
